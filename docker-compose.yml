@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  build:
+    build:
+      context: .
+      cache_from:
+        - crawler-build
+      target: build
+    image: crawler-build
+
+  app:
+    build:
+      context: .
+      cache_from:
+        - crawler-build
+        - crawler
+      target: app
+    image: crawler

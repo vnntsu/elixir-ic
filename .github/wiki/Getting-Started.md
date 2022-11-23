@@ -1,16 +1,8 @@
-[![Build Status](CI_BADGE_URL goes here)](REPO_URL goes here)
+## Erlang & Elixir
 
-## Introduction
+- Erlang 25.0.4
 
-> *App introduction goes here ...*
-
-## Project Setup
-
-### Erlang & Elixir
-
-- Erlang 25.1.2
-
-- Elixir 1.14.0-otp-25
+- Elixir 1.14.0
 
 ### Node
 
@@ -25,7 +17,7 @@
   - [asdf-node](https://github.com/asdf-vm/asdf-node)
 
 
-### Development
+## Development
 
 - Install [Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
@@ -38,7 +30,7 @@
 - Install Elixir dependencies:
 
   ```sh
-  mix deps.get
+  mix do deps.get, deps.compile
   ```
 
 - Install Node dependencies:
@@ -107,19 +99,10 @@
   mix coverage
   ```
 
-### Production
+## Production
 
 - Build Docker image
 
   ```sh
   docker-compose build
   ```
-
-### CI/CD
-
-The project relies entirely on [Github Actions](https://github.com/features/actions) for CI/CD via multiple workflows located under the [`.github/workflows/`](.github/workflows) directory.
-Please check out the [`.github/workflows/README.md`](.github/workflows/README.md) file for further instructions.
-
-## Project documentation
-
-Most of the documentation is located in the `.github/wiki` directory, which is published to the [project's Github wiki](https://github.com/[REPO]/wiki).
