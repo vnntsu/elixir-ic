@@ -1,0 +1,34 @@
+{
+  "repository": {},
+  "description": " ",
+  "license": "MIT",
+  "scripts": {
+    "svg-sprite.generate-icon": "svg-sprite --shape-id-generator \"icon-%s\" --symbol --symbol-dest ../priv/static/images --symbol-sprite icon-sprite.svg ../priv/static/images/icons/*.svg",
+    "postcss": "postcss ../priv/static/assets/*.css --dir ../priv/static/assets/ --config ./",
+    "postcss.watch": "postcss ../priv/static/assets/*.css --dir ../priv/static/assets/ --config ./ --watch",
+    "stylelint": "stylelint --color ./css",
+    "stylelint.fix": "stylelint --color --fix ./css",
+    "eslint": "eslint --color ./",
+    "eslint.fix": "eslint --color --fix ./"
+  },
+  "dependencies": {
+    "@popperjs/core": "2.11.5",
+    "bootstrap": "5.1.3",
+    "core-js": "3.22.0"
+  },
+  "devDependencies": {
+    "svg-sprite": "1.5.4",
+    "postcss": "8.4.12",
+    "postcss-cli": "9.1.0",
+    "postcss-load-config": "3.1.4",
+    "autoprefixer": "10.4.5",
+    "stylelint": "14.7.1",
+    "stylelint-config-property-sort-order-smacss": "9.0.0",
+    "stylelint-config-sass-guidelines": "9.0.1",
+    "eslint": "8.14.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "prettier": "2.6.2",
+    "prettier-plugin-eex": "0.5.0"
+  }
+}
