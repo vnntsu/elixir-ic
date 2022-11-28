@@ -3,8 +3,8 @@ defmodule CrawlerWeb.HealthPlug do
 
   import Plug.Conn
 
-  alias Ecto.Adapters.SQL
   alias Crawler.Repo
+  alias Ecto.Adapters.SQL
 
   require Logger
 
