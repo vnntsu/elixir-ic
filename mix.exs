@@ -101,7 +101,8 @@ defmodule Crawler.MixProject do
         "cmd npm run eslint.fix --prefix assets",
         "prettier.fix",
         "deps.clean --unlock --unused",
-        "format"
+        "format",
+        "gettext.extract --merge --no-fuzzy"
       ],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", &migrate/1, "run priv/repo/seeds.exs"],
