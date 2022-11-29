@@ -8,9 +8,9 @@
 
 ### Erlang & Elixir
 
-- Erlang 25.1.2
+- Erlang 25.0.4
 
-- Elixir 1.14.0-otp-25
+- Elixir 1.14.0
 
 ### Node
 
