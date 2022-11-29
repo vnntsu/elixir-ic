@@ -1,8 +1,9 @@
-name: Fly Deploy
+name: Deploy to Fly
 on:
   push:
     branches:
       - main
+      - chore/2-setup-cd
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
