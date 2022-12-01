@@ -50,26 +50,26 @@ jobs:
             deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-mix-
-      
+
       - name: Cache Node modules
         uses: actions/cache@v3
         with:
           path: assets/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-      
+
       - name: Install Elixir dependencies
         run: mix deps.get
 
       - name: Compile dependencies
         run: mix compile
-      
+
       - name: Install Node dependencies
         run: npm --prefix assets install
 
       - name: Compile assets
         run: mix assets.deploy
-      
+
   lint_codebase:
     name: Linting
 
@@ -122,26 +122,26 @@ jobs:
             deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-mix-
-      
+
       - name: Cache Node modules
         uses: actions/cache@v3
         with:
           path: assets/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-      
+
       - name: Install Elixir dependencies
         run: mix deps.get
 
       - name: Compile dependencies
         run: mix compile --warnings-as-errors --all-warnings
-      
+
       - name: Install Node dependencies
         run: npm --prefix assets install
 
       - name: Compile assets
         run: mix assets.deploy
-      
+
       - name: Create database
         run: mix ecto.create
 
@@ -209,26 +209,26 @@ jobs:
             deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-mix-
-      
+
       - name: Cache Node modules
         uses: actions/cache@v3
         with:
           path: assets/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-      
+
       - name: Install Elixir dependencies
         run: mix deps.get
 
       - name: Compile dependencies
         run: mix compile
-      
+
       - name: Install Node dependencies
         run: npm --prefix assets install
 
       - name: Compile assets
         run: mix assets.deploy
-      
+
       - name: Create database
         run: mix ecto.create
 
@@ -290,26 +290,26 @@ jobs:
             deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-mix-
-      
+
       - name: Cache Node modules
         uses: actions/cache@v3
         with:
           path: assets/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node-
-      
+
       - name: Install Elixir dependencies
         run: mix deps.get
 
       - name: Compile dependencies
         run: mix compile
-      
+
       - name: Install Node dependencies
         run: npm --prefix assets install
 
       - name: Compile assets
         run: mix assets.deploy
-      
+
       - name: Create database
         run: mix ecto.create
 

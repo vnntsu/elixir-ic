@@ -1,4 +1,4 @@
 # Configuration file for https://github.com/asdf-vm/asdf
-erlang 25.1.2
-elixir 1.14.2-otp-25
+erlang 25.0.4
+elixir 1.14.0
 nodejs 16.15.0
