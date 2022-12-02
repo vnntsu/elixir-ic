@@ -2,8 +2,8 @@ defmodule Crawler.Accounts.Schemas.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Crawler.Repo
   alias Crawler.Accounts.Schemas.User
+  alias Crawler.Repo
 
   schema "users" do
     field(:email, :string)
@@ -78,7 +78,9 @@ defmodule Crawler.Accounts.Schemas.User do
     |> validate_length(:password, min: 8, max: 72)
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/,
+    #   message: "at least one digit or punctuation character"
+    # )
     |> maybe_hash_password(opts)
   end
 

@@ -15,11 +15,11 @@ defmodule CrawlerWeb.ConnCase do
   this option is not recommended for other databases.
   """
 
+  use ExUnit.CaseTemplate
+
   import Crawler.Factory
 
-  alias Crawler.Accounts.Accounts
-
-  use ExUnit.CaseTemplate
+  alias Crawler.Accounts
 
   using do
     quote do
