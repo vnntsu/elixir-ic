@@ -1,0 +1,19 @@
+{
+  "skip_files": [
+    "lib/mix",
+    "lib/crawler/application.ex",
+    "lib/crawler/release_tasks.ex",
+    "lib/crawler_web.ex",
+    "lib/crawler_mail.ex",
+    "lib/crawler_web/endpoint.ex",
+    "lib/crawler_web/telemetry.ex",
+    "lib/crawler_web/channels/user_socket.ex",
+    "lib/crawler_web/views/error_helpers.ex",
+    "lib/crawler_web/controllers/api/fallback_controller.ex",
+    "test/support"
+  ],
+  "coverage_options": {
+    "minimum_coverage": 100,
+    "html_filter_full_covered": true
+  }
+}
