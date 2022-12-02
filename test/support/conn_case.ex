@@ -15,6 +15,10 @@ defmodule CrawlerWeb.ConnCase do
   this option is not recommended for other databases.
   """
 
+  import CrawlerWeb.Factory
+
+  alias CrawlerWeb.Accounts.Accounts
+
   use ExUnit.CaseTemplate
 
   using do
@@ -60,7 +64,7 @@ defmodule CrawlerWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_user(conn, user) do
-    token = Crawler.Accounts.generate_user_session_token(user)
+    token = Accounts.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
