@@ -15,9 +15,9 @@ defmodule CrawlerWeb.ConnCase do
   this option is not recommended for other databases.
   """
 
-  import CrawlerWeb.Factory
+  import Crawler.Factory
 
-  alias CrawlerWeb.Accounts.Accounts
+  alias Crawler.Accounts.Accounts
 
   use ExUnit.CaseTemplate
 
