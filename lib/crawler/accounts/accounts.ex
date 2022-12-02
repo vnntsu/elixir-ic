@@ -22,9 +22,7 @@ defmodule Crawler.Accounts.Accounts do
       nil
 
   """
-  def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
-  end
+  def get_user_by_email(email) when is_binary(email), do: Repo.get_by(User, email: email)
 
   @doc """
   Gets a user by email and password.

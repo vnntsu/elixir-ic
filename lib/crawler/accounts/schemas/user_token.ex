@@ -1,7 +1,9 @@
 defmodule Crawler.Accounts.Schemas.UserToken do
   use Ecto.Schema
+
   import Ecto.Query
-  alias Crawler.Accounts.Schemas.{UserToken, User}
+
+  alias Crawler.Accounts.Schemas.{User, UserToken}
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -78,22 +80,7 @@ defmodule Crawler.Accounts.Schemas.UserToken do
   Users can easily adapt the existing code to provide other types of delivery methods,
   for example, by phone numbers.
   """
-  def build_email_token(user, context) do
-    build_hashed_token(user, context, user.email)
-  end
-
-  defp build_hashed_token(user, context, sent_to) do
-    token = :crypto.strong_rand_bytes(@rand_size)
-    hashed_token = :crypto.hash(@hash_algorithm, token)
-
-    {Base.url_encode64(token, padding: false),
-     %UserToken{
-       token: hashed_token,
-       context: context,
-       sent_to: sent_to,
-       user_id: user.id
-     }}
-  end
+  def build_email_token(user, context), do: build_hashed_token(user, context, user.email)
 
   @doc """
   Checks if the token is valid and returns its underlying lookup query.
@@ -127,9 +114,6 @@ defmodule Crawler.Accounts.Schemas.UserToken do
         :error
     end
   end
-
-  defp days_for_context("confirm"), do: @confirm_validity_in_days
-  defp days_for_context("reset_password"), do: @reset_password_validity_in_days
 
   @doc """
   Checks if the token is valid and returns its underlying lookup query.
@@ -165,18 +149,30 @@ defmodule Crawler.Accounts.Schemas.UserToken do
   @doc """
   Returns the token struct for the given token value and context.
   """
-  def token_and_context_query(token, context) do
-    from(UserToken, where: [token: ^token, context: ^context])
-  end
+  def token_and_context_query(token, context),
+    do: from(UserToken, where: [token: ^token, context: ^context])
 
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
-  def user_and_contexts_query(user, :all) do
-    from(t in UserToken, where: t.user_id == ^user.id)
+  def user_and_contexts_query(user, :all), do: from(t in UserToken, where: t.user_id == ^user.id)
+
+  def user_and_contexts_query(user, [_ | _] = contexts),
+    do: from(t in UserToken, where: t.user_id == ^user.id and t.context in ^contexts)
+
+  defp build_hashed_token(user, context, sent_to) do
+    token = :crypto.strong_rand_bytes(@rand_size)
+    hashed_token = :crypto.hash(@hash_algorithm, token)
+
+    {Base.url_encode64(token, padding: false),
+     %UserToken{
+       token: hashed_token,
+       context: context,
+       sent_to: sent_to,
+       user_id: user.id
+     }}
   end
 
-  def user_and_contexts_query(user, [_ | _] = contexts) do
-    from(t in UserToken, where: t.user_id == ^user.id and t.context in ^contexts)
-  end
+  defp days_for_context("confirm"), do: @confirm_validity_in_days
+  defp days_for_context("reset_password"), do: @reset_password_validity_in_days
 end
