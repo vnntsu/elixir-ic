@@ -39,6 +39,7 @@ defmodule Crawler.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:compass_credo_plugin, "~> 1.0.0", [only: [:dev, :test], runtime: false]},
       {:credo, "~> 1.6.7", [only: [:dev, :test], runtime: false]},
       {:dart_sass, "~> 0.5.1", [runtime: Mix.env() == :dev]},
