@@ -4,74 +4,59 @@ defmodule Crawler.AccountsTest do
   alias Crawler.Accounts
   alias Crawler.Accounts.Schemas.{User, UserToken}
 
-  describe "get_user_by_email/1" do
-    test "does not return the user if the email does not exist" do
-      refute Accounts.get_user_by_email("unknown@example.com")
-    end
-
-    test "returns the user if the email exists" do
-      %{id: id} = user = insert(:user)
-      assert %User{id: ^id} = Accounts.get_user_by_email(user.email)
-    end
-  end
-
   describe "get_user_by_email_and_password/2" do
-    test "does not return the user if the email does not exist" do
-      refute Accounts.get_user_by_email_and_password("unknown@example.com", "123456")
-    end
-
-    test "does not return the user if the password is not valid" do
-      user = insert(:user)
-      refute Accounts.get_user_by_email_and_password(user.email, "invalid")
-    end
-
-    test "returns the user if the email and password are valid" do
+    test "given valid email and password, returns the user" do
       %{id: id} = user = insert(:user)
 
       assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, user.password)
     end
-  end
 
-  describe "get_user!/1" do
-    test "raises if id is invalid" do
-      assert_raise Ecto.NoResultsError, fn ->
-        Accounts.get_user!(-1)
-      end
+    test "given the email does not exist, returns nil" do
+      assert Accounts.get_user_by_email_and_password("unknown@example.com", "hello world!") == nil
     end
 
-    test "returns the user with the given id" do
-      %{id: id} = user = insert(:user)
-      assert %User{id: ^id} = Accounts.get_user!(user.id)
+    test "given an invalid password, returns nil" do
+      user = insert(:user)
+      assert Accounts.get_user_by_email_and_password(user.email, "invalid") == nil
+    end
+
+    test "given the email and password are nil, raises FunctionClauseError" do
+      assert_raise FunctionClauseError, fn ->
+        Accounts.get_user_by_email_and_password(nil, nil)
+      end
     end
   end
 
   describe "register_user/1" do
-    test "requires email and password to be set" do
+    test "given a valid email, returns a valid changeset" do
+      %{email: email} = params = params_for(:user)
+      {:ok, user} = Accounts.register_user(params)
+      assert user.email == email
+      assert is_binary(user.hashed_password)
+      assert is_nil(user.password)
+    end
+
+    test "given empty email and password, returns an invalid changeset" do
       {:error, changeset} = Accounts.register_user(%{})
 
-      assert %{
-               password: ["can't be blank"],
-               email: ["can't be blank"]
-             } = errors_on(changeset)
+      assert %{password: ["can't be blank"], email: ["can't be blank"]} = errors_on(changeset)
     end
 
-    test "validates email and password when given" do
+    test "given invalid email and password, returns an invalid changset" do
       {:error, changeset} = Accounts.register_user(%{email: "not valid", password: "123456"})
 
-      assert %{
-               email: ["must have the @ sign and no spaces"],
-               password: ["should be at least 8 character(s)"]
-             } = errors_on(changeset)
+      assert "must have the @ sign and no spaces" in errors_on(changeset).email
+      assert "should be at least 8 character(s)" in errors_on(changeset).password
     end
 
-    test "validates maximum values for email and password for security" do
+    test "given exceeding email and password length, returns an invalid changeset" do
       too_long = String.duplicate("db", 100)
       {:error, changeset} = Accounts.register_user(%{email: too_long, password: too_long})
       assert "should be at most 160 character(s)" in errors_on(changeset).email
       assert "should be at most 72 character(s)" in errors_on(changeset).password
     end
 
-    test "validates email uniqueness" do
+    test "given a duplicated email, returns an invalid changeset" do
       %{email: email} = insert(:user)
       {:error, lower_changeset} = Accounts.register_user(%{email: email})
       assert "has already been taken" in errors_on(lower_changeset).email
@@ -86,11 +71,7 @@ defmodule Crawler.AccountsTest do
     test "given valid email and password, returns a valid changeset" do
       %{email: email, password: password} = params = params_for(:user)
 
-      changeset =
-        Accounts.change_user_registration(
-          %User{},
-          params
-        )
+      changeset = Accounts.change_user_registration(%User{}, params)
 
       assert changeset.valid?
       assert get_change(changeset, :email) == email
@@ -98,7 +79,7 @@ defmodule Crawler.AccountsTest do
       assert is_nil(get_change(changeset, :hashed_password))
     end
 
-    test "given EMPTY email and password, returns an INVALID changeset" do
+    test "given empty email and password, returns an invalid changeset" do
       assert %Ecto.Changeset{} = changeset = Accounts.change_user_registration(%User{})
       assert changeset.required == [:password, :email]
     end
@@ -109,12 +90,11 @@ defmodule Crawler.AccountsTest do
       %{user: insert(:user)}
     end
 
-    test "generates a token", %{user: user} do
+    test "given a user, returns a token", %{user: user} do
       token = Accounts.generate_user_session_token(user)
       assert user_token = Repo.get_by(UserToken, token: token)
       assert user_token.context == "session"
 
-      # Creating the same token for another user should fail
       assert_raise Ecto.ConstraintError, fn ->
         Repo.insert!(%UserToken{
           token: user_token.token,
@@ -132,18 +112,18 @@ defmodule Crawler.AccountsTest do
       %{user: user, token: token}
     end
 
-    test "returns user by token", %{user: user, token: token} do
+    test "given a valid token, returns a user", %{user: user, token: token} do
       assert session_user = Accounts.get_user_by_session_token(token)
       assert session_user.id == user.id
     end
 
-    test "does not return user for invalid token" do
-      refute Accounts.get_user_by_session_token("oops")
+    test "given an invalid token, returns nil" do
+      assert Accounts.get_user_by_session_token("oops") == nil
     end
 
-    test "does not return user for expired token", %{token: token} do
+    test "given an expired token, returns nil", %{token: token} do
       {1, nil} = Repo.update_all(UserToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
-      refute Accounts.get_user_by_session_token(token)
+      assert Accounts.get_user_by_session_token(token) == nil
     end
   end
 

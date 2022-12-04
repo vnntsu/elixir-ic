@@ -52,17 +52,6 @@ defmodule Crawler.Accounts.Schemas.User do
     false
   end
 
-  @doc """
-  Validates the current password otherwise adds an error to the changeset.
-  """
-  def validate_current_password(changeset, password) do
-    if valid_password?(changeset.data, password) do
-      changeset
-    else
-      add_error(changeset, :current_password, "is not valid")
-    end
-  end
-
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
