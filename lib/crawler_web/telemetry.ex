@@ -3,9 +3,7 @@ defmodule CrawlerWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
-  def start_link(arg) do
-    Supervisor.start_link(__MODULE__, arg, name: __MODULE__)
-  end
+  def start_link(arg), do: Supervisor.start_link(__MODULE__, arg, name: __MODULE__)
 
   @impl true
   def init(_arg) do
@@ -50,7 +48,8 @@ defmodule CrawlerWeb.Telemetry do
       ),
       summary("crawler.repo.query.idle_time",
         unit: {:native, :millisecond},
-        description: "The time the connection spent waiting before being checked out for the query"
+        description:
+          "The time the connection spent waiting before being checked out for the query"
       ),
 
       # VM Metrics
