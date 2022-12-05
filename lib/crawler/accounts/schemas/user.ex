@@ -1,5 +1,6 @@
 defmodule Crawler.Accounts.Schemas.User do
   use Ecto.Schema
+
   import Ecto.Changeset
 
   alias Crawler.Accounts.Schemas.User
