@@ -1,8 +1,8 @@
 defmodule Crawler.AccountsTest do
   use Crawler.DataCase
 
-  alias Crawler.Accounts
-  alias Crawler.Accounts.Schemas.{User, UserToken}
+  alias Crawler.Account.Accounts
+  alias Crawler.Account.Schemas.{User, UserToken}
 
   describe "get_user_by_email_and_password/2" do
     test "given valid email and password, returns the user" do

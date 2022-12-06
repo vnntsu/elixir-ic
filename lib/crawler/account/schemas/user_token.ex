@@ -1,9 +1,9 @@
-defmodule Crawler.Accounts.Schemas.UserToken do
+defmodule Crawler.Account.Schemas.UserToken do
   use Ecto.Schema
 
   import Ecto.Query
 
-  alias Crawler.Accounts.Schemas.{User, UserToken}
+  alias Crawler.Account.Schemas.{User, UserToken}
 
   @rand_size 32
 

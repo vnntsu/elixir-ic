@@ -19,7 +19,7 @@ defmodule CrawlerWeb.ConnCase do
 
   import Crawler.Factory
 
-  alias Crawler.Accounts
+  alias Crawler.Account.Accounts
 
   using do
     quote do

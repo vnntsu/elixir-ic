@@ -1,11 +1,11 @@
-defmodule Crawler.Accounts do
+defmodule Crawler.Account.Accounts do
   @moduledoc """
   The Accounts context.
   """
 
   import Ecto.Query, warn: false
 
-  alias Crawler.Accounts.Schemas.{User, UserToken}
+  alias Crawler.Account.Schemas.{User, UserToken}
   alias Crawler.Repo
 
   ## Database getters

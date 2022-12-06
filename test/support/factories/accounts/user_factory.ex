@@ -1,5 +1,5 @@
-defmodule Crawler.Accounts.UserFactory do
-  alias Crawler.Accounts.Schemas.User
+defmodule Crawler.Account.UserFactory do
+  alias Crawler.Account.Schemas.User
   alias Faker.Blockchain.Bitcoin, as: FakerBitcoin
 
   defmacro __using__(_opts) do
