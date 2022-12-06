@@ -1,4 +1,4 @@
-defmodule Crawler.Account.UserFactory do
+defmodule Crawler.Accounts.UserFactory do
   alias Crawler.Account.Schemas.User
   alias Faker.Blockchain.Bitcoin, as: FakerBitcoin
 
