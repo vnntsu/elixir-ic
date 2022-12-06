@@ -1,4 +1,4 @@
-defmodule Crawler.AccountsTest do
+defmodule Crawler.Account.AccountsTest do
   use Crawler.DataCase
 
   alias Crawler.Account.Accounts
