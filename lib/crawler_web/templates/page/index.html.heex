@@ -4,7 +4,10 @@
       <%= gettext("Crawler - Su T.'s Elixir IC") %>
     </h1>
     <div class="pt-5">
-      <%= link(gettext("Register"), to: Routes.user_registration_path(@conn, :new), class: "btn btn-primary btn-lg" ) %>
+      <%= link(gettext("Register"),
+        to: Routes.user_registration_path(@conn, :new),
+        class: "btn btn-primary btn-lg"
+      ) %>
     </div>
   </div>
 </div>

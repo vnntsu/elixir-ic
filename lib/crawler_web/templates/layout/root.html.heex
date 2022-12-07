@@ -1,52 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="csrf-token" content={csrf_token_value()} />
-  <%= live_title_tag(assigns[:page_title] || "Crawler" , suffix: " · Phoenix Framework" ) %>
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
-    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content={csrf_token_value()} />
+    <%= live_title_tag(assigns[:page_title] || "Crawler", suffix: " · Phoenix Framework") %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <script
+      defer
+      phx-track-static
+      type="text/javascript"
+      src={Routes.static_path(@conn, "/assets/app.js")}
+    >
     </script>
-</head>
+  </head>
 
-<body>
-  <header class="p-3 mb-3 border-bottom">
-    <nav role="navigation">
-      <div class="container d-flex align-items-center">
-        <div class="p-2 flex-grow-1">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-            <h1>
-              <%= gettext("Crawler") %>
-            </h1>
-          </a>
+  <body>
+    <header class="p-3 mb-3 border-bottom">
+      <nav role="navigation">
+        <div class="container d-flex align-items-center">
+          <div class="p-2 flex-grow-1">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+            >
+              <h1>
+                <%= gettext("Crawler") %>
+              </h1>
+            </a>
+          </div>
+          <%= if @current_user do %>
+            <div class="p-2 text-end">
+              <div>
+                <%= @current_user.email %>
+              </div>
+              <div>
+                <%= gettext("Log out") %>
+              </div>
+            </div>
+          <% else %>
+            <div class="p-2 text-end">
+              <div>
+                <%= gettext("Log in") %>
+              </div>
+              <div>
+                <%= link(gettext("Register"), to: Routes.user_registration_path(@conn, :new)) %>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <%= if @current_user do %>
-          <div class="p-2 text-end">
-            <div>
-              <%= @current_user.email %>
-            </div>
-            <div>
-              <%= gettext("Log out") %>
-            </div>
-          </div>
-        <% else %>
-          <div class="p-2 text-end">
-            <div>
-              <%= gettext("Log in") %>
-            </div>
-            <div>
-              <%= link( gettext("Register"), to: Routes.user_registration_path(@conn, :new)) %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <%= @inner_content %>
-</body>
-
+    <%= @inner_content %>
+  </body>
 </html>
