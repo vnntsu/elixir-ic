@@ -17,6 +17,10 @@ defmodule CrawlerWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  import Crawler.Factory
+
+  alias Crawler.Account.Accounts
+
   using do
     quote do
       use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
@@ -39,5 +43,31 @@ defmodule CrawlerWeb.ConnCase do
   setup tags do
     Crawler.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  @doc """
+  Setup helper that registers and logs in users.
+
+      setup :register_and_log_in_user
+
+  It stores an updated connection and a registered user in the
+  test context.
+  """
+  def register_and_log_in_user(%{conn: conn}) do
+    user = insert(:user)
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
+  @doc """
+  Logs the given `user` into the `conn`.
+
+  It returns an updated `conn`.
+  """
+  def log_in_user(conn, user) do
+    token = Accounts.generate_user_session_token(user)
+
+    conn
+    |> Phoenix.ConnTest.init_test_session(%{})
+    |> Plug.Conn.put_session(:user_token, token)
   end
 end
