@@ -15,15 +15,15 @@ msgstr ""
 msgid "Crawler - Su T.'s Elixir IC"
 msgstr ""
 
-#: lib/crawler_web/templates/layout/root.html.heex:41
+#: lib/crawler_web/templates/layout/root.html.heex:48
 #: lib/crawler_web/templates/page/index.html.heex:7
 #: lib/crawler_web/templates/user_registration/new.html.heex:3
-#: lib/crawler_web/templates/user_registration/new.html.heex:25
+#: lib/crawler_web/templates/user_registration/new.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
 
-#: lib/crawler_web/templates/layout/root.html.heex:22
+#: lib/crawler_web/templates/layout/root.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Crawler"
 msgstr ""
@@ -33,17 +33,17 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: lib/crawler_web/templates/user_registration/new.html.heex:15
+#: lib/crawler_web/templates/user_registration/new.html.heex:18
 #, elixir-autogen, elixir-format
 msgid "name@example.com"
 msgstr ""
 
-#: lib/crawler_web/templates/layout/root.html.heex:38
+#: lib/crawler_web/templates/layout/root.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
 
-#: lib/crawler_web/templates/layout/root.html.heex:32
+#: lib/crawler_web/templates/layout/root.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr ""
