@@ -1,5 +1,5 @@
 defmodule Crawler.Account.AccountsTest do
-  use Crawler.DataCase
+  use Crawler.DataCase, async: true
 
   alias Crawler.Account.Accounts
   alias Crawler.Account.Schemas.{User, UserToken}
