@@ -1,4 +1,3 @@
-# credo:disable-for-this-file CompassCredoPlugin.Check.DoSingleExpression
 defmodule Crawler do
   @moduledoc """
   Crawler keeps the contexts that define your domain

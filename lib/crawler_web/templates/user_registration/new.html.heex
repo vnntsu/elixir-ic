@@ -1,4 +1,4 @@
-<div class="pt-3">
+<div class="modal-dialog modal-content p-5">
   <h1>
     <%= gettext("Register") %>
   </h1>
@@ -19,7 +19,7 @@
       ) %>
       <%= error_tag(f, :email) %>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3">
       <%= label(f, :password) %>
       <%= password_input(f, :password, required: true, class: "form-control") %>
       <%= error_tag(f, :password) %>

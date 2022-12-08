@@ -1,7 +1,7 @@
 defmodule CrawlerWeb.Router do
   use CrawlerWeb, :router
 
-  import CrawlerWeb.UserAuth
+  import CrawlerWeb.UserAuthController
 
   alias CrawlerWeb.RouterHelper
 

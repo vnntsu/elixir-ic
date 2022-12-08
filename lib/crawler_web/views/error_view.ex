@@ -1,4 +1,3 @@
-# credo:disable-for-this-file CompassCredoPlugin.Check.DoSingleExpression
 defmodule CrawlerWeb.ErrorView do
   use CrawlerWeb, :view
 
