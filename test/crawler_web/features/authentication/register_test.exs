@@ -7,7 +7,7 @@ defmodule CrawlerWeb.Authentication.RegisterTest do
     user = build(:user)
     authenticated_session = register_user(session, user)
 
-    assert current_path(authenticated_session) == Routes.page_path(Endpoint, :index)
+    assert current_path(authenticated_session) == Routes.home_path(Endpoint, :index)
 
     authenticated_session
     |> assert_has(Query.text(user.email))

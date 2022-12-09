@@ -19,6 +19,7 @@ msgstr ""
 #: lib/crawler_web/templates/page/index.html.heex:7
 #: lib/crawler_web/templates/user_registration/new.html.heex:3
 #: lib/crawler_web/templates/user_registration/new.html.heex:28
+#: lib/crawler_web/templates/user_session/new.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
@@ -39,6 +40,8 @@ msgid "name@example.com"
 msgstr ""
 
 #: lib/crawler_web/templates/layout/root.html.heex:45
+#: lib/crawler_web/templates/user_session/new.html.heex:3
+#: lib/crawler_web/templates/user_session/new.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
