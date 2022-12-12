@@ -8,12 +8,26 @@ defmodule CrawlerWeb.FeatureCase do
 
       import Crawler.Factory
       import CrawlerWeb.Gettext
+      import Wallaby.Query
 
       alias Crawler.Repo
       alias CrawlerWeb.Endpoint
       alias CrawlerWeb.Router.Helpers, as: Routes
 
       @moduletag :feature_test
+
+      def register_user(session, user \\ build(:user)) do
+        session
+        |> visit(Routes.user_registration_path(Endpoint, :new))
+        |> fill_in_registration_form(user)
+      end
+
+      defp fill_in_registration_form(session, user) do
+        session
+        |> fill_in(text_field("user[email]"), with: user.email)
+        |> fill_in(text_field("user[password]"), with: user.password)
+        |> click(button("Register"))
+      end
     end
   end
 end
