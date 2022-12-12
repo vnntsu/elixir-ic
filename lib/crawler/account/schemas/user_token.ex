@@ -1,4 +1,3 @@
-# TODO: - This module is used for Register UI and Log in
 defmodule Crawler.Account.Schemas.UserToken do
   use Ecto.Schema
 

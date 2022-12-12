@@ -15,22 +15,44 @@
     >
     </script>
   </head>
+
   <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link("LiveDashboard", to: Routes.live_dashboard_path(@conn, :home)) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo" />
-        </a>
-      </section>
+    <header class="p-3 mb-3 border-bottom">
+      <nav role="navigation">
+        <div class="container d-flex align-items-center">
+          <div class="p-2 flex-grow-1">
+            <a
+              href="/"
+              class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+            >
+              <h1>
+                <%= gettext("Crawler") %>
+              </h1>
+            </a>
+          </div>
+          <%= if @current_user do %>
+            <div class="p-2 text-end">
+              <div>
+                <%= @current_user.email %>
+              </div>
+              <div>
+                <%= gettext("Log out") %>
+              </div>
+            </div>
+          <% else %>
+            <div class="p-2 text-end">
+              <div>
+                <%= gettext("Log in") %>
+              </div>
+              <div>
+                <%= link(gettext("Register"), to: Routes.user_registration_path(@conn, :new)) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </nav>
     </header>
+
     <%= @inner_content %>
   </body>
 </html>
