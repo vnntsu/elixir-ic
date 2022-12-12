@@ -1,5 +1,5 @@
 defmodule CrawlerWeb.Authentication.RegisterTest do
-  use CrawlerWeb.FeatureCase, async: true
+  use CrawlerWeb.FeatureCase
 
   alias CrawlerWeb.Endpoint
 
