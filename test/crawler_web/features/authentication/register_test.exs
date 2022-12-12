@@ -11,6 +11,6 @@ defmodule CrawlerWeb.Authentication.RegisterTest do
 
     authenticated_session
     |> assert_has(Query.text(user.email))
-    |> assert_has(Query.text("Log out"))
+    |> assert_has(Query.text(gettext("Log out")))
   end
 end
