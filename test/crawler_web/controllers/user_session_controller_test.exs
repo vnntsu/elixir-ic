@@ -8,6 +8,7 @@ defmodule CrawlerWeb.UserSessionControllerTest do
   describe "GET /users/log_in" do
     test "given an unauthenticated user, renders log in page", %{conn: conn} do
       conn = get(conn, Routes.user_session_path(conn, :new))
+
       response = html_response(conn, 200)
       assert response =~ "<h1>\nLog in\n  </h1>"
       assert response =~ "#{gettext("Log in")}</button>"

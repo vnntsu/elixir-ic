@@ -1,5 +1,5 @@
 defmodule CrawlerWeb.Authentication.LogInTest do
-  use CrawlerWeb.FeatureCase, async: true
+  use CrawlerWeb.FeatureCase, async: false
 
   alias CrawlerWeb.Endpoint
 
@@ -11,19 +11,6 @@ defmodule CrawlerWeb.Authentication.LogInTest do
 
     authenticated_session
     |> assert_has(Query.text(user.email))
-    |> assert_has(Query.text("Log out"))
-  end
-
-  feature "when failed to log in, renders log in", %{
-    session: session
-  } do
-    user = build(:user)
-    unauthenticated_session = log_in_user(session, user)
-
-    assert current_path(unauthenticated_session) == Routes.user_session_path(Endpoint, :new)
-
-    unauthenticated_session
-    |> assert_has(text_field("user[email]"))
-    |> assert_has(text_field("user[password]"))
+    |> assert_has(Query.text(gettext("Log out")))
   end
 end

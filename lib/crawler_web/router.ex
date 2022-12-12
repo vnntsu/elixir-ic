@@ -32,10 +32,10 @@ defmodule CrawlerWeb.Router do
     get("/", PageController, :index)
 
     scope "/users" do
-      get("/users/register", UserRegistrationController, :new)
-      post("/users/register", UserRegistrationController, :create)
-      get("/users/log_in", UserSessionController, :new)
-      post("/users/log_in", UserSessionController, :create)
+      get("/register", UserRegistrationController, :new)
+      post("/register", UserRegistrationController, :create)
+      get("/log_in", UserSessionController, :new)
+      post("/log_in", UserSessionController, :create)
     end
   end
 

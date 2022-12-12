@@ -6,6 +6,7 @@ defmodule CrawlerWeb.UserRegistrationControllerTest do
   describe "GET /users/register" do
     test "given an authenticated user, renders registration page", %{conn: conn} do
       conn = get(conn, Routes.user_registration_path(conn, :new))
+
       response = html_response(conn, 200)
       assert response =~ "<h1>\nRegister\n  </h1>"
       assert response =~ "Register</button>"
@@ -35,6 +36,7 @@ defmodule CrawlerWeb.UserRegistrationControllerTest do
 
       # Now do a logged in request and assert on the menu
       conn2 = get(conn, @home_path)
+
       response = html_response(conn2, 200)
       assert response =~ email
       assert response =~ "Log out\n"
