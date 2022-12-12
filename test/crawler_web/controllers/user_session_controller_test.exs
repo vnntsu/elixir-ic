@@ -1,6 +1,8 @@
 defmodule CrawlerWeb.UserSessionControllerTest do
   use CrawlerWeb.ConnCase, async: true
 
+  import CrawlerWeb.Gettext
+
   @home_path "/home"
 
   describe "GET /users/log_in" do
@@ -8,7 +10,7 @@ defmodule CrawlerWeb.UserSessionControllerTest do
       conn = get(conn, Routes.user_session_path(conn, :new))
       response = html_response(conn, 200)
       assert response =~ "<h1>\nLog in\n  </h1>"
-      assert response =~ "Log in</button>"
+      assert response =~ "#{gettext("Log in")}</button>"
     end
 
     test "given an authenticated user, redirects to the root page", %{conn: conn} do

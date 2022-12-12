@@ -2,7 +2,7 @@ defmodule CrawlerWeb.HomeControllerTest do
   use CrawlerWeb.ConnCase, async: true
 
   describe "GET /home" do
-    test "given existing session, renders home page", %{conn: conn} do
+    test "given an authenticated user, renders the home page", %{conn: conn} do
       user = insert(:user)
 
       conn =
@@ -14,7 +14,7 @@ defmodule CrawlerWeb.HomeControllerTest do
       assert html_response(conn, 200) =~ "Home"
     end
 
-    test "give non-existing session, renders log in page", %{conn: conn} do
+    test "give an unauthenticated user, renders the log in page", %{conn: conn} do
       conn =
         conn
         |> get(Routes.home_path(conn, :index))

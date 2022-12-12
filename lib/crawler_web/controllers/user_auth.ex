@@ -1,4 +1,5 @@
 defmodule CrawlerWeb.UserAuth do
+  import CrawlerWeb.Gettext
   import Plug.Conn
   import Phoenix.Controller
 
@@ -69,7 +70,7 @@ defmodule CrawlerWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You must log in to access this page.")
+      |> put_flash(:error, gettext("You must log in to access this page."))
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()
@@ -121,5 +122,5 @@ defmodule CrawlerWeb.UserAuth do
 
   defp maybe_write_remember_me_cookie(conn, _token, _params), do: conn
 
-  defp signed_in_path(_conn), do: "/home"
+  defp signed_in_path(conn), do: Routes.home_path(conn, :index)
 end
