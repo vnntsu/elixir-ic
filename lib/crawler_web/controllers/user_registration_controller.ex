@@ -3,7 +3,7 @@ defmodule CrawlerWeb.UserRegistrationController do
 
   alias Crawler.Account.Accounts
   alias Crawler.Account.Schemas.User
-  alias CrawlerWeb.UserAuthController, as: UserAuth
+  alias CrawlerWeb.UserAuth
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

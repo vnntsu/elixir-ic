@@ -1,4 +1,4 @@
-defmodule CrawlerWeb.UserAuthController do
+defmodule CrawlerWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
