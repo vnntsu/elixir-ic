@@ -22,6 +22,19 @@ defmodule CrawlerWeb.FeatureCase do
         |> fill_in_registration_form(user)
       end
 
+      def log_in_user(session, user \\ build(:user)) do
+        session
+        |> visit(Routes.user_session_path(Endpoint, :new))
+        |> fill_in_log_in_form(user)
+      end
+
+      defp fill_in_log_in_form(session, user) do
+        session
+        |> fill_in(text_field("user[email]"), with: user.email)
+        |> fill_in(text_field("user[password]"), with: user.password)
+        |> click(button("Log in"))
+      end
+
       defp fill_in_registration_form(session, user) do
         session
         |> fill_in(text_field("user[email]"), with: user.email)
