@@ -26,7 +26,7 @@ defmodule CrawlerWeb.FeatureCase do
         session
         |> fill_in(text_field("user[email]"), with: user.email)
         |> fill_in(text_field("user[password]"), with: user.password)
-        |> click(button("Register"))
+        |> click(button(gettext("Register")))
       end
     end
   end
