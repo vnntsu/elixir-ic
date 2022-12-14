@@ -42,7 +42,7 @@
           <% else %>
             <div class="p-2 text-end">
               <div>
-                <%= gettext("Log in") %>
+                <%= link(gettext("Log in"), to: Routes.user_session_path(@conn, :new)) %>
               </div>
               <div>
                 <%= link(gettext("Register"), to: Routes.user_registration_path(@conn, :new)) %>

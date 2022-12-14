@@ -24,18 +24,24 @@ defmodule CrawlerWeb.Router do
 
   forward(RouterHelper.health_path(), CrawlerWeb.HealthPlug)
 
-  scope "/", CrawlerWeb do
-    pipe_through(:browser)
-
-    get("/", PageController, :index)
-  end
-
   ## Authentication routes
 
   scope "/", CrawlerWeb do
     pipe_through([:browser, :redirect_if_user_is_authenticated])
 
-    get("/users/register", UserRegistrationController, :new)
-    post("/users/register", UserRegistrationController, :create)
+    get("/", PageController, :index)
+
+    scope "/users" do
+      get("/register", UserRegistrationController, :new)
+      post("/register", UserRegistrationController, :create)
+      get("/log_in", UserSessionController, :new)
+      post("/log_in", UserSessionController, :create)
+    end
+  end
+
+  scope "/", CrawlerWeb do
+    pipe_through([:browser, :require_authenticated_user])
+
+    get("/home", HomeController, :index)
   end
 end

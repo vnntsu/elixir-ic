@@ -1,11 +1,19 @@
-<main class="container d-flex align-items-center">
+<main class="container">
   <% info = get_flash(@conn, :info) %>
   <% error = get_flash(@conn, :error) %>
   <%= if info do %>
-    <p class="alert alert-info" role="alert"><%= info %></p>
+    <div class="flex alert alert-info justify-content-center m-auto">
+      <p class="my-0" role="alert">
+        <%= info %>
+      </p>
+    </div>
   <% end %>
   <%= if error do %>
-    <p class="alert alert-danger" role="alert"><%= error %></p>
+    <div class="flex alert alert-danger justify-content-center m-auto">
+      <p class="my-0" role="alert">
+        <%= error %>
+      </p>
+    </div>
   <% end %>
   <%= @inner_content %>
 </main>
