@@ -10,6 +10,8 @@ config :crawler, Crawler.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+secret_key = "YpJX/e6lxrVjURURQmgnnnB5WYmi25H/UT72lGvS2BITQCTUSEGYML6NxjBH4/ta"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -23,7 +25,7 @@ config :crawler, CrawlerWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "YpJX/e6lxrVjURURQmgnnnB5WYmi25H/UT72lGvS2BITQCTUSEGYML6NxjBH4/ta",
+  secret_key_base: secret_key,
   watchers: [
     app_sass: {
       DartSass,
@@ -38,6 +40,8 @@ config :crawler, CrawlerWeb.Endpoint,
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:app, ~w(--sourcemap=inline --watch)]}
   ]
+
+config :crawler, Crawler.Account.Guardian, secret_key: secret_key
 
 # ## SSL Support
 #
