@@ -2,13 +2,17 @@
   <% info = get_flash(@conn, :info) %>
   <% error = get_flash(@conn, :error) %>
   <%= if info do %>
-    <div class="flex alert col-xl-6 alert-info justify-content-center m-auto">
-      <p class="my-0" role="alert"><%= info %></p>
+    <div class="flex alert alert-info justify-content-center m-auto">
+      <p class="my-0" role="alert">
+        <%= info %>
+      </p>
     </div>
   <% end %>
   <%= if error do %>
-    <div class="flex alert col-xl-6 alert-info justify-content-center m-auto">
-      <p class="my-0" role="alert"><%= error %></p>
+    <div class="flex alert alert-info justify-content-center m-auto">
+      <p class="my-0" role="alert">
+        <%= error %>
+      </p>
     </div>
   <% end %>
   <%= @inner_content %>
