@@ -135,4 +135,16 @@ defmodule Crawler.Account.AccountsTest do
       refute Accounts.get_user_by_session_token(token)
     end
   end
+
+  describe "get_user/1" do
+    test "given valid id, returns the user" do
+      %{id: id} = user = insert(:user)
+
+      assert %User{id: ^id} = Accounts.get_user(user.id)
+    end
+
+    test "given invalid id, returns nil" do
+      assert Accounts.get_user(-1) == nil
+    end
+  end
 end
