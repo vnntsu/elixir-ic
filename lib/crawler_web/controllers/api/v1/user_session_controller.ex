@@ -12,7 +12,6 @@ defmodule CrawlerWeb.Api.V1.UserSessionController do
         data: %{id: :os.system_time(:millisecond), token: token, email: user.email}
       })
     else
-      # render(conn, "error.json", %{code: :unauthorized, detail: "Invalid email or password"})
       nil ->
         conn
         |> put_view(ErrorView)
