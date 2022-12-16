@@ -16,13 +16,16 @@ defmodule CrawlerWeb.Api.V1.UserSessionController do
         conn
         |> put_view(ErrorView)
         |> put_status(:unauthorized)
-        |> render("error.json", %{code: :unauthorized, detail: "Invalid email or password"})
+        |> render("error.json", %{code: :unauthorized, detail: gettext("Invalid email or password")})
 
       _error ->
         conn
         |> put_view(ErrorView)
         |> put_status(:internal_server_error)
-        |> render("error.json", %{code: :internal_server_error, detail: "Internal server error"})
+        |> render("error.json", %{
+          code: :internal_server_error,
+          detail: gettext("Internal server error")
+        })
     end
   end
 
@@ -30,6 +33,9 @@ defmodule CrawlerWeb.Api.V1.UserSessionController do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(ErrorView)
-    |> render("error.json", %{code: :unprocessable_entity, detail: "Email or password is missing"})
+    |> render("error.json", %{
+      code: :unprocessable_entity,
+      detail: gettext("Email or password is missing")
+    })
   end
 end

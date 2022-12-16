@@ -6,9 +6,10 @@ defmodule Crawler.Account.AccountsTest do
 
   describe "get_user_by_email_and_password/2" do
     test "given valid email and password, returns the user" do
-      %{id: id} = user = insert(:user)
+      %{id: user_id} = user = insert(:user)
 
-      assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, user.password)
+      assert %User{id: ^user_id} =
+               Accounts.get_user_by_email_and_password(user.email, user.password)
     end
 
     test "given the email does not exist, returns nil" do
@@ -138,9 +139,9 @@ defmodule Crawler.Account.AccountsTest do
 
   describe "get_user/1" do
     test "given valid id, returns the user" do
-      %{id: id} = user = insert(:user)
+      %{id: user_id} = insert(:user)
 
-      assert %User{id: ^id} = Accounts.get_user(user.id)
+      assert %User{id: ^user_id} = Accounts.get_user(user_id)
     end
 
     test "given invalid id, returns nil" do

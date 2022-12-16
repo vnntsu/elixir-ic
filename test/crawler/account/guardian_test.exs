@@ -4,7 +4,7 @@ defmodule Crawler.Account.GuardianTest do
   alias Crawler.Account.Guardian
 
   describe "subject_for_token/2" do
-    test "given a reousrce, returns resource ID" do
+    test "given a resource entity, returns resource ID" do
       user = insert(:user)
 
       assert Guardian.subject_for_token(user, %{}) == {:ok, "#{user.id}"}

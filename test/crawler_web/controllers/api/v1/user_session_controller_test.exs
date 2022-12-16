@@ -28,8 +28,6 @@ defmodule CrawlerWeb.Api.V1.UserSessionControllerTest do
     end
 
     test "given invalid user credentials, returns error response", %{conn: conn} do
-      insert(:user)
-
       conn =
         post(conn, Routes.api_v1_user_session_path(conn, :create), %{
           email: "wrong@gmail.com",
