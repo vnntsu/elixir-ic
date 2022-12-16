@@ -38,7 +38,7 @@ defmodule CrawlerWeb.Api.V1.UserSessionControllerTest do
                "errors" => [
                  %{
                    "code" => "unauthorized",
-                   "detail" => "Invalid email or password"
+                   "detail" => gettext("Invalid email or password")
                  }
                ]
              }
@@ -54,7 +54,7 @@ defmodule CrawlerWeb.Api.V1.UserSessionControllerTest do
                "errors" => [
                  %{
                    "code" => "unprocessable_entity",
-                   "detail" => "Email or password is missing"
+                   "detail" => gettext("Email or password is missing")
                  }
                ]
              }
@@ -77,7 +77,7 @@ defmodule CrawlerWeb.Api.V1.UserSessionControllerTest do
                "errors" => [
                  %{
                    "code" => "internal_server_error",
-                   "detail" => "Internal server error"
+                   "detail" => gettext("Internal server error")
                  }
                ]
              }

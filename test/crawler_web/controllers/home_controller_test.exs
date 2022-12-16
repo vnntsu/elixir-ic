@@ -11,7 +11,7 @@ defmodule CrawlerWeb.HomeControllerTest do
         |> get(Routes.home_path(conn, :index))
 
       assert conn.assigns.current_user.id == user.id
-      assert html_response(conn, 200) =~ "Home"
+      assert html_response(conn, 200) =~ gettext("Home")
     end
 
     test "give an unauthenticated user, renders the log in page", %{conn: conn} do
@@ -20,7 +20,7 @@ defmodule CrawlerWeb.HomeControllerTest do
         |> get(Routes.home_path(conn, :index))
         |> get(Routes.user_session_path(conn, :new))
 
-      assert html_response(conn, 200) =~ "Log in</a>"
+      assert html_response(conn, 200) =~ "#{gettext("Log in")}</a>"
     end
   end
 end

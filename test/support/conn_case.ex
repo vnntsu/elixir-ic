@@ -28,10 +28,11 @@ defmodule CrawlerWeb.ConnCase do
       use Mimic
 
       # Import conveniences for testing with connections
+      import Crawler.Factory
+      import CrawlerWeb.ConnCase
+      import CrawlerWeb.Gettext
       import Plug.Conn
       import Phoenix.ConnTest
-      import CrawlerWeb.ConnCase
-      import Crawler.Factory
 
       alias CrawlerWeb.Router.Helpers, as: Routes
 

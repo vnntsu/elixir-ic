@@ -9,7 +9,7 @@ defmodule CrawlerWeb.UserRegistrationControllerTest do
 
       response = html_response(conn, 200)
       assert response =~ "<h1>\nRegister\n  </h1>"
-      assert response =~ "Register</button>"
+      assert response =~ "#{gettext("Register")}</button>"
     end
 
     test "given an authenticated user, redirects to the root page", %{conn: conn} do
@@ -39,7 +39,7 @@ defmodule CrawlerWeb.UserRegistrationControllerTest do
 
       response = html_response(conn2, 200)
       assert response =~ email
-      assert response =~ "Log out\n"
+      assert response =~ "#{gettext("Log out")}\n"
     end
 
     test "given invalid user data, renders errors", %{conn: conn} do
@@ -49,7 +49,7 @@ defmodule CrawlerWeb.UserRegistrationControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>\nRegister\n  </h1>"
+      assert response =~ "<h1>\n#{gettext("Register")}\n  </h1>"
       assert response =~ "must have the @ sign and no spaces"
       assert response =~ "should be at least 8 character"
     end
