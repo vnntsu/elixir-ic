@@ -1,5 +1,8 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -13,12 +16,16 @@ config :crawler, Crawler.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
+secret_key = "nxH3guRW7lXTCr4eXhJTRQh+sJuVXfxZJKjhRWoHbwr/bltylg32N7BmaVzrQSYV"
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :crawler, CrawlerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "nxH3guRW7lXTCr4eXhJTRQh+sJuVXfxZJKjhRWoHbwr/bltylg32N7BmaVzrQSYV",
+  secret_key_base: secret_key,
   server: true
+
+config :crawler, Crawler.Account.Guardian, secret_key: secret_key
 
 config :crawler, :sql_sandbox, true
 

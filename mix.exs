@@ -4,7 +4,7 @@ defmodule Crawler.MixProject do
   def project do
     [
       app: :crawler,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -39,6 +39,7 @@ defmodule Crawler.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:compass_credo_plugin, "~> 1.0.0", [only: [:dev, :test], runtime: false]},
       {:credo, "~> 1.6.7", [only: [:dev, :test], runtime: false]},
       {:dart_sass, "~> 0.5.1", [runtime: Mix.env() == :dev]},
@@ -51,7 +52,9 @@ defmodule Crawler.MixProject do
       {:faker, "~> 0.17.0", [only: [:dev, :test], runtime: false]},
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.18"},
+      {:guardian, "~> 2.3.1"},
       {:jason, "~> 1.2"},
+      {:jsonapi, "~> 1.4.0"},
       {:mimic, "~> 1.7.4", [only: :test]},
       {:mix_test_interactive, "~> 1.2.2", [only: :dev, runtime: false]},
       {:nimble_template, "~> 4.5.0", only: :dev, runtime: false},

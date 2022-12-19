@@ -1,4 +1,3 @@
-# credo:disable-for-this-file CompassCredoPlugin.Check.DoSingleExpression
 defmodule Crawler.ReleaseTasks do
   @app :crawler
 
@@ -28,9 +27,7 @@ defmodule Crawler.ReleaseTasks do
     repo.__adapter__.storage_up(repo.config)
   end
 
-  defp repos do
-    Application.fetch_env!(@app, :ecto_repos)
-  end
+  defp repos, do: Application.fetch_env!(@app, :ecto_repos)
 
   defp load_app do
     Application.ensure_all_started(:ssl)

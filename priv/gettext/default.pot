@@ -10,7 +10,74 @@
 msgid ""
 msgstr ""
 
-#: lib/crawler_web/templates/page/index.html.heex:2
+#: lib/crawler_web/templates/page/index.html.heex:4
 #, elixir-autogen, elixir-format
-msgid "Welcome to %{name}!"
+msgid "Crawler - Su T.'s Elixir IC"
+msgstr ""
+
+#: lib/crawler_web/templates/layout/root.html.heex:48
+#: lib/crawler_web/templates/user_registration/new.html.heex:3
+#: lib/crawler_web/templates/user_registration/new.html.heex:28
+#: lib/crawler_web/templates/user_session/new.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr ""
+
+#: lib/crawler_web/templates/layout/root.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Crawler"
+msgstr ""
+
+#: lib/crawler_web/templates/user_registration/new.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Oops, something went wrong!"
+msgstr ""
+
+#: lib/crawler_web/templates/user_registration/new.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "name@example.com"
+msgstr ""
+
+#: lib/crawler_web/templates/layout/root.html.heex:45
+#: lib/crawler_web/templates/user_registration/new.html.heex:33
+#: lib/crawler_web/templates/user_session/new.html.heex:3
+#: lib/crawler_web/templates/user_session/new.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/crawler_web/templates/layout/root.html.heex:39
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Home"
+msgstr ""
+
+#: lib/crawler_web/controllers/user_registration_controller.ex:17
+#, elixir-autogen, elixir-format
+msgid "User created successfully."
+msgstr ""
+
+#: lib/crawler_web/controllers/user_auth.ex:73
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/user_session_controller.ex:19
+#: lib/crawler_web/controllers/user_session_controller.ex:16
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/user_session_controller.ex:38
+#, elixir-autogen, elixir-format
+msgid "Email or password is missing"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/user_session_controller.ex:27
+#, elixir-autogen, elixir-format
+msgid "Internal server error"
 msgstr ""
