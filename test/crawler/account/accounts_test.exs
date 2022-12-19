@@ -6,9 +6,10 @@ defmodule Crawler.Account.AccountsTest do
 
   describe "get_user_by_email_and_password/2" do
     test "given valid email and password, returns the user" do
-      %{id: id} = user = insert(:user)
+      %{id: user_id} = user = insert(:user)
 
-      assert %User{id: ^id} = Accounts.get_user_by_email_and_password(user.email, user.password)
+      assert %User{id: ^user_id} =
+               Accounts.get_user_by_email_and_password(user.email, user.password)
     end
 
     test "given the email does not exist, returns nil" do
@@ -133,6 +134,18 @@ defmodule Crawler.Account.AccountsTest do
       token = Accounts.generate_user_session_token(user)
       assert Accounts.delete_session_token(token) == :ok
       refute Accounts.get_user_by_session_token(token)
+    end
+  end
+
+  describe "get_user/1" do
+    test "given valid id, returns the user" do
+      %{id: user_id} = insert(:user)
+
+      assert %User{id: ^user_id} = Accounts.get_user(user_id)
+    end
+
+    test "given invalid id, returns nil" do
+      assert Accounts.get_user(-1) == nil
     end
   end
 end

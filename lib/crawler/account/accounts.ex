@@ -83,4 +83,6 @@ defmodule Crawler.Account.Accounts do
     Repo.delete_all(UserToken.token_and_context_query(token, "session"))
     :ok
   end
+
+  def get_user(id), do: Repo.get(User, id)
 end

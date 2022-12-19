@@ -44,4 +44,14 @@ defmodule CrawlerWeb.Router do
 
     get("/home", HomeController, :index)
   end
+
+  ## api
+
+  scope "/api", CrawlerWeb, as: :api do
+    pipe_through :api
+
+    scope "/v1", Api.V1, as: :v1 do
+      post("/log_in", UserSessionController, :create)
+    end
+  end
 end
