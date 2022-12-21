@@ -82,3 +82,58 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Internal server error"
 msgstr ""
+
+#: lib/crawler/home/schemas/keyword_csv_file.ex:23
+#, elixir-autogen, elixir-format
+msgid "Invalid CSV file"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Keyword"
+msgstr ""
+
+#: lib/crawler_web/controllers/home_controller.ex:38
+#, elixir-autogen, elixir-format
+msgid "Keywords were uploaded!"
+msgstr ""
+
+#: lib/crawler_web/controllers/home_controller.ex:65
+#, elixir-autogen, elixir-format
+msgid "One or more keywords are invalid! Allowed keyword length is %{min}-%{max}"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Please choose a CSV file:"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr ""
+
+#: lib/crawler_web/controllers/home_controller.ex:27
+#, elixir-autogen, elixir-format
+msgid "The file doesn't look like CSV."
+msgstr ""
+
+#: lib/crawler_web/controllers/home_controller.ex:51
+#, elixir-autogen, elixir-format
+msgid "The file is empty."
+msgstr ""
+
+#: lib/crawler_web/controllers/home_controller.ex:57
+#, elixir-autogen, elixir-format
+msgid "The file is too big, allowed size is up to %{limit} keywords."
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Updated"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Upload"
+msgstr ""
