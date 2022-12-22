@@ -1,9 +1,9 @@
 defmodule CrawlerWeb.HomeController do
   use CrawlerWeb, :controller
 
-  alias Crawler.Home.Helpers.CSVParser
-  alias Crawler.Home.Keywords
-  alias Crawler.Home.Schemas.KeywordCSVFile
+  alias Crawler.Keyword.Helpers.CSVParser
+  alias Crawler.Keyword.Keywords
+  alias Crawler.Keyword.Schemas.KeywordCSVFile
 
   def index(conn, _params) do
     changeset = KeywordCSVFile.create_changeset(%KeywordCSVFile{})

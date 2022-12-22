@@ -1,4 +1,4 @@
-defmodule Crawler.Home.Schemas.Keyword do
+defmodule Crawler.Keyword.Schemas.Keyword do
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -12,7 +12,8 @@ defmodule Crawler.Home.Schemas.Keyword do
     timestamps()
   end
 
-  @doc false
+  def new_status_changeset(keyword), do: change(keyword, status: :new)
+
   def changeset(keyword, attrs) do
     keyword
     |> cast(attrs, [:name, :status, :user_id])
@@ -20,6 +21,4 @@ defmodule Crawler.Home.Schemas.Keyword do
     |> unique_constraint(:name, name: :keywords_title_user_id_index)
     |> assoc_constraint(:user)
   end
-
-  def new_changeset(keyword), do: change(keyword, status: :new)
 end

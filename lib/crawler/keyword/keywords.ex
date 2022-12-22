@@ -1,12 +1,12 @@
-defmodule Crawler.Home.Keywords do
+defmodule Crawler.Keyword.Keywords do
   @moduledoc """
   The Keywords context.
   """
 
   import Ecto.Query, warn: false
 
-  alias Crawler.Home.Queries.KeywordQuery
-  alias Crawler.Home.Schemas.Keyword
+  alias Crawler.Keyword.Queries.KeywordQuery
+  alias Crawler.Keyword.Schemas.Keyword
   alias Crawler.Repo
 
   def list_keywords(user_id), do: Repo.all(KeywordQuery.user_keywords_query(user_id))
@@ -34,7 +34,7 @@ defmodule Crawler.Home.Keywords do
         _ ->
           keywords
           |> Enum.at(0)
-          |> Keyword.new_changeset()
+          |> Keyword.new_status_changeset()
           |> Repo.update!()
       end
     end)

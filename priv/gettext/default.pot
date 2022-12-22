@@ -82,7 +82,7 @@ msgstr ""
 msgid "Internal server error"
 msgstr ""
 
-#: lib/crawler/home/schemas/keyword_csv_file.ex:23
+#: lib/crawler/keyword/schemas/keyword_csv_file.ex:23
 #, elixir-autogen, elixir-format
 msgid "Invalid CSV file"
 msgstr ""

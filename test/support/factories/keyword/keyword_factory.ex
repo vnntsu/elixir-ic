@@ -1,5 +1,5 @@
-defmodule Crawler.Home.KeywordFactory do
-  alias Crawler.Home.Schemas.Keyword
+defmodule Crawler.Keyword.KeywordFactory do
+  alias Crawler.Keyword.Schemas.Keyword
 
   defmacro __using__(_opts) do
     quote do

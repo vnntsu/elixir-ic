@@ -1,4 +1,4 @@
-defmodule Crawler.Home.Helpers.CSVParser do
+defmodule Crawler.Keyword.Helpers.CSVParser do
   alias NimbleCSV.RFC4180, as: CSV
 
   @keywords_file_max_length 1000

@@ -1,7 +1,7 @@
-defmodule Crawler.Home.Helpers.CSVParserTests do
+defmodule Crawler.Keyword.Helpers.CSVParserTests do
   use Crawler.DataCase, async: true
 
-  alias Crawler.Home.Helpers.CSVParser
+  alias Crawler.Keyword.Helpers.CSVParser
 
   describe "parse/1" do
     test "given valid keywords file, returns the keywords list" do

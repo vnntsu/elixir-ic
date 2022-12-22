@@ -1,4 +1,4 @@
-defmodule Crawler.Home.Schemas.KeywordCSVFile do
+defmodule Crawler.Keyword.Schemas.KeywordCSVFile do
   use Ecto.Schema
 
   import CrawlerWeb.Gettext

@@ -1,7 +1,7 @@
-defmodule Crawler.Home.Schemas.KeywordCSVFileTest do
+defmodule Crawler.Keyword.Schemas.KeywordCSVFileTest do
   use Crawler.DataCase, async: true
 
-  alias Crawler.Home.Schemas.KeywordCSVFile
+  alias Crawler.Keyword.Schemas.KeywordCSVFile
 
   describe "create_changeset/1" do
     test "given a valid file, returns valid changeset" do

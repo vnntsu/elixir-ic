@@ -1,8 +1,8 @@
-defmodule Crawler.Home.KeywordsTest do
+defmodule Crawler.Keyword.KeywordsTest do
   use Crawler.DataCase, async: true
 
-  alias Crawler.Home.Keywords
-  alias Crawler.Home.Schemas.Keyword
+  alias Crawler.Keyword.Keywords
+  alias Crawler.Keyword.Schemas.Keyword
 
   describe("list_keywords/1") do
     test "given a valid user id, returns user's keyword list" do

@@ -1,7 +1,7 @@
-defmodule Crawler.Home.Queries.KeywordQuery do
+defmodule Crawler.Keyword.Queries.KeywordQuery do
   import Ecto.Query
 
-  alias Crawler.Home.Schemas.Keyword
+  alias Crawler.Keyword.Schemas.Keyword
 
   def user_keywords_query(user_id), do: where(Keyword, [keyword], keyword.user_id == ^user_id)
 
