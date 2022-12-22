@@ -9,29 +9,8 @@ defmodule Crawler.Home.Keywords do
   alias Crawler.Home.Schemas.Keyword
   alias Crawler.Repo
 
-  @doc """
-  Returns the list of keywords.
-
-  ## Examples
-
-      iex> list_keywords()
-      [%Keyword{}, ...]
-
-  """
   def list_keywords(user_id), do: Repo.all(KeywordQuery.user_keywords_query(user_id))
 
-  @doc """
-  Creates a keyword.
-
-  ## Examples
-
-      iex> create_keyword(%{field: value})
-      {:ok, %Keyword{}}
-
-      iex> create_keyword(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_keyword(attrs \\ %{}) do
     %Keyword{}
     |> Keyword.changeset(attrs)
