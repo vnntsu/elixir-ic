@@ -17,7 +17,7 @@ defmodule Crawler.Keyword.KeywordsTest do
   end
 
   describe("create_keyword/1") do
-    test "given a valid keyword data, creates keyword" do
+    test "given a valid keyword data, creates a keyword" do
       %{id: user_id} = insert(:user)
       keyword_params = %{name: "keyword", user_id: user_id}
 
