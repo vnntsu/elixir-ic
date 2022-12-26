@@ -20,6 +20,10 @@ defmodule CrawlerWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :api_auth do
+    plug CrawlerWeb.Api.AuthPipeline
+  end
+
   # coveralls-ignore-stop
 
   forward(RouterHelper.health_path(), CrawlerWeb.HealthPlug)
@@ -53,6 +57,14 @@ defmodule CrawlerWeb.Router do
 
     scope "/v1", Api.V1, as: :v1 do
       post("/log_in", UserSessionController, :create)
+    end
+  end
+
+  scope "/api", CrawlerWeb, as: :api do
+    pipe_through [:api, :api_auth]
+
+    scope "/v1", Api.V1, as: :v1 do
+      post("/keyword/upload", KeywordController, :create)
     end
   end
 end
