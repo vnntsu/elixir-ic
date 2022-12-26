@@ -19,14 +19,14 @@ defmodule Crawler.Keyword.Schemas.KeywordCSVFileTest do
       changeset = KeywordCSVFile.create_changeset(%KeywordCSVFile{}, attrs)
 
       assert changeset.valid? == false
-      assert errors_on(changeset) == %{file: ["Invalid CSV file"]}
+      assert errors_on(changeset) == %{file: [gettext("Invalid CSV file")]}
     end
 
     test "when file doesn't exist, returns invalid changeset" do
       changeset = KeywordCSVFile.create_changeset(%KeywordCSVFile{}, %{file: nil})
 
       assert changeset.valid? == false
-      assert errors_on(changeset) == %{file: ["can't be blank"]}
+      assert errors_on(changeset) == %{file: [gettext("can't be blank")]}
     end
   end
 end
