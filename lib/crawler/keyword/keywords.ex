@@ -18,31 +18,25 @@ defmodule Crawler.Keyword.Keywords do
   end
 
   def create_keyword_list(keyword_list, user_id) do
-    keyword_params_list = build_keyword_params_list(keyword_list, user_id)
-
-    insert_keywords(keyword_params_list, user_id)
+    keyword_list
+    |> build_keyword_params_list(user_id)
+    |> insert_all_keywords()
   end
 
-  defp insert_keywords(keyword_params_list, user_id) do
-    Enum.each(keyword_params_list, fn keyword_params ->
-      keywords = Repo.all(KeywordQuery.user_keywords_query(keyword_params.name, user_id))
-
-      case keywords do
-        [] ->
-          create_keyword(keyword_params)
-
-        _ ->
-          keywords
-          |> Enum.at(0)
-          |> Keyword.new_status_changeset()
-          |> Repo.update!()
-      end
-    end)
+  defp insert_all_keywords(keyword_params_list) do
+    Repo.insert_all(
+      Keyword,
+      keyword_params_list,
+      on_conflict: {:replace_all_except, [:id]},
+      conflict_target: [:name, :user_id]
+    )
   end
 
   defp build_keyword_params_list(keyword_list, user_id) do
+    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+
     Enum.map(keyword_list, fn keyword ->
-      %{name: keyword, user_id: user_id}
+      %{name: keyword, status: :new, user_id: user_id, inserted_at: now, updated_at: now}
     end)
   end
 end

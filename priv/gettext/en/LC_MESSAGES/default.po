@@ -88,7 +88,7 @@ msgstr ""
 msgid "Invalid CSV file"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:29
+#: lib/crawler_web/templates/home/index.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Keyword"
 msgstr ""
@@ -108,12 +108,12 @@ msgstr ""
 msgid "Please choose a CSV file:"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:30
+#: lib/crawler_web/templates/home/index.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Status"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:31
+#: lib/crawler_web/templates/home/index.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Updated"
 msgstr ""
@@ -136,4 +136,9 @@ msgstr ""
 #: lib/crawler_web/controllers/keyword_controller.ex:51
 #, elixir-autogen, elixir-format
 msgid "The file is too big, allowed size is up to %{limit} keywords"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "You don't have keywords yet, please upload a CSV file."
 msgstr ""

@@ -8,8 +8,8 @@
       <%= gettext("Please choose a CSV file:") %>
     </h4>
 
-    <%= form_for @changeset, Routes.keyword_path(@conn, :create), [method: "post" , class: "row pt-2" , multipart: true], fn
-  f-> %>
+    <%= form_for @changeset, Routes.keyword_path(@conn, :create), [method: "post" , class: "row pt-2" , multipart:
+      true], fn f-> %>
       <div class="col-3">
         <%= file_input(f, :file, class: "form-control", required: true, accept: 'text/csv') %>
       </div>
@@ -19,25 +19,41 @@
     <% end %>
 
     <%= if Enum.empty?(@keywords) do %>
-      <p><%= "You don't have keywords yet, please upload a CSV file." %></p>
+      <p>
+        <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
+      </p>
     <% else %>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col"><%= gettext("Keyword") %></th>
-              <th scope="col"><%= gettext("Status") %></th>
-              <th scope="col"><%= gettext("Updated") %> (UTC)</th>
+              <th scope="col">
+                <%= gettext("Keyword") %>
+              </th>
+              <th scope="col">
+                <%= gettext("Status") %>
+              </th>
+              <th scope="col">
+                <%= gettext("Updated") %> (UTC)
+              </th>
             </tr>
           </thead>
           <tbody>
             <%= for {keyword, i} <- Enum.with_index(@keywords, 1) do %>
               <tr>
-                <td><%= i %></td>
-                <td><%= keyword.name %></td>
-                <td><%= keyword.status %></td>
-                <td><%= Calendar.strftime(keyword.updated_at, "%Y-%m-%d %H:%M") %></td>
+                <td>
+                  <%= i %>
+                </td>
+                <td>
+                  <%= keyword.name %>
+                </td>
+                <td>
+                  <%= keyword.status %>
+                </td>
+                <td>
+                  <%= Calendar.strftime(keyword.updated_at, "%Y-%m-%d %H:%M") %>
+                </td>
               </tr>
             <% end %>
           </tbody>

@@ -12,13 +12,11 @@ defmodule Crawler.Keyword.Schemas.Keyword do
     timestamps()
   end
 
-  def new_status_changeset(keyword), do: change(keyword, status: :new)
-
   def changeset(keyword, attrs) do
     keyword
     |> cast(attrs, [:name, :status, :user_id])
     |> validate_required([:name, :user_id])
-    |> unique_constraint(:name, name: :keywords_title_user_id_index)
+    |> unique_constraint([:name, :user_id])
     |> assoc_constraint(:user)
   end
 end
