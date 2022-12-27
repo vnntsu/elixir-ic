@@ -1,4 +1,5 @@
 defmodule CrawlerWeb.Api.AuthErrorHandler do
+  import CrawlerWeb.Gettext
   import Plug.Conn
   import Phoenix.Controller
 
@@ -10,7 +11,8 @@ defmodule CrawlerWeb.Api.AuthErrorHandler do
     |> put_status(:unauthorized)
     |> render("error.json", %{
       code: "unauthorized",
-      detail: "Unauthorized"
+      detail: gettext("Unauthorized")
     })
+    |> halt()
   end
 end
