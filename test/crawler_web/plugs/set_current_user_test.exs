@@ -3,8 +3,11 @@ defmodule CrawlerWeb.Plugs.SetCurrentUserTest do
 
   import CrawlerWeb.Plugs.SetCurrentUser
 
+  alias CrawlerWeb.Plugs.SetCurrentUser
+
   describe "call/2" do
-    test "retrieves user data from session when it exists", %{conn: conn} do
+    test "given a user, retrieves user data from session", %{conn: conn} do
+      _ = SetCurrentUser.init({})
       created_user = insert(:user)
 
       conn =
@@ -15,7 +18,7 @@ defmodule CrawlerWeb.Plugs.SetCurrentUserTest do
       assert conn.assigns.current_user.id == created_user.id
     end
 
-    test "retrieves user data from session when it does NOT exists", %{conn: conn} do
+    test "given no user, doesn't retrieve user data from session", %{conn: conn} do
       conn = call(conn, %{})
 
       assert conn.assigns.current_user == nil
