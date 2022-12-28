@@ -82,11 +82,6 @@ msgstr ""
 msgid "Internal server error"
 msgstr ""
 
-#: lib/crawler/keyword/schemas/keyword_csv_file.ex:23
-#, elixir-autogen, elixir-format
-msgid "Invalid CSV file"
-msgstr ""
-
 #: lib/crawler_web/templates/home/index.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "Keyword"
@@ -140,4 +135,9 @@ msgstr ""
 #: lib/crawler_web/templates/home/index.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "You don't have keywords yet, please upload a CSV file."
+msgstr ""
+
+#: lib/crawler/keyword/schemas/keyword_csv_file.ex:23
+#, elixir-autogen, elixir-format
+msgid "Uploaded file is not a valid CSV file"
 msgstr ""

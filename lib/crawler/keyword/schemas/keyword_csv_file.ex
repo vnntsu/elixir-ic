@@ -20,7 +20,7 @@ defmodule Crawler.Keyword.Schemas.KeywordCSVFile do
       if Path.extname(file.filename) == ".csv" and file.content_type == "text/csv" do
         []
       else
-        [file: gettext("Invalid CSV file")]
+        [file: gettext("Uploaded file is not a valid CSV file")]
       end
     end)
   end
