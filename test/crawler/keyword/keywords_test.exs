@@ -34,19 +34,5 @@ defmodule Crawler.Keyword.KeywordsTest do
 
       assert length(Keywords.list_keywords(user_id)) == 2
     end
-
-    test "given a list with an existing keyword, modifies status of the keyword to new" do
-      %{id: user_id} = insert(:user)
-      keyword_params = %{name: "keyword", status: :in_progress, user_id: user_id}
-      Keywords.create_keyword(keyword_params)
-      Keywords.create_keyword_list(["keyword", "second key"], user_id)
-
-      keyword =
-        Enum.find(Keywords.list_keywords(user_id), fn keyword ->
-          keyword.name == "keyword"
-        end)
-
-      assert keyword.status == :new
-    end
   end
 end

@@ -23,14 +23,7 @@ defmodule Crawler.Keyword.Keywords do
     |> insert_all_keywords()
   end
 
-  defp insert_all_keywords(keyword_params_list) do
-    Repo.insert_all(
-      Keyword,
-      keyword_params_list,
-      on_conflict: {:replace_all_except, [:id]},
-      conflict_target: [:name, :user_id]
-    )
-  end
+  defp insert_all_keywords(keyword_params_list), do: Repo.insert_all(Keyword, keyword_params_list)
 
   defp build_keyword_params_list(keyword_list, user_id) do
     now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)

@@ -11,6 +11,5 @@ defmodule Crawler.Repo.Migrations.CreateKeywords do
     end
 
     create index(:keywords, [:user_id])
-    create unique_index(:keywords, [:name, :user_id])
   end
 end
