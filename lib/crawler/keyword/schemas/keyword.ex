@@ -3,11 +3,13 @@ defmodule Crawler.Keyword.Schemas.Keyword do
 
   import Ecto.Changeset
 
+  alias Crawler.Account.Schemas.User
+
   schema "keywords" do
     field :name, :string
     field :status, Ecto.Enum, values: [:new, :in_progress, :completed, :failed], default: :new
 
-    belongs_to :user, Crawler.Account.Schemas.User
+    belongs_to :user, User
 
     timestamps()
   end
