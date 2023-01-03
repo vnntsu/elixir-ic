@@ -194,9 +194,11 @@
         ## Checks from CompassCredoPlugin
         #
         {CompassCredoPlugin.Check.DefdelegateOrder, []},
-        {CompassCredoPlugin.Check.SingleModuleFile, []},
-        {CompassCredoPlugin.Check.RepeatingFragments, []},
-        {CompassCredoPlugin.Check.DoSingleExpression, []}
+        {CompassCredoPlugin.Check.DoSingleExpression, []},
+        {CompassCredoPlugin.Check.SingleModuleFile, []}
+
+        # TODO: Uncomment when new release with fixing consecutive duplicate names
+        # {CompassCredoPlugin.Check.RepeatingFragments, []},
 
         #
         # Custom checks can be created using `mix credo.gen.check`.

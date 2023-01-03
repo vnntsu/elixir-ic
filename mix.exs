@@ -57,6 +57,7 @@ defmodule Crawler.MixProject do
       {:jsonapi, "~> 1.4.0"},
       {:mimic, "~> 1.7.4", [only: :test]},
       {:mix_test_interactive, "~> 1.2.2", [only: :dev, runtime: false]},
+      {:nimble_csv, "~> 1.2.0"},
       {:nimble_template, "~> 4.5.0", only: :dev, runtime: false},
       {:oban, "~> 2.13.5"},
       {:phoenix, "~> 1.6.15"},
