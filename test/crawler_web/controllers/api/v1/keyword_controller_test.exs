@@ -4,7 +4,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
   alias Crawler.Keyword.Keywords
 
   describe "POST /keyword/upload" do
-    test "given valid keyword csv file, creates keyword successfully", %{conn: conn} do
+    test "given valid keyword csv file, creates keywords and returns 200", %{conn: conn} do
       user = insert(:user)
       uploaded_file = keyword_file_fixture("valid.csv")
       detail = gettext("Keywords were uploaded!")
@@ -38,7 +38,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
       assert list == ["one", "two", "three"]
     end
 
-    test "given empty file, shows validation error", %{conn: conn} do
+    test "given empty file, returns 422 status", %{conn: conn} do
       user = insert(:user)
       uploaded_file = keyword_file_fixture("empty.csv")
       detail = gettext("The file is empty")

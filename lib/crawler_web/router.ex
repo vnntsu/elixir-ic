@@ -64,7 +64,7 @@ defmodule CrawlerWeb.Router do
     pipe_through [:api, :api_auth]
 
     scope "/v1", Api.V1, as: :v1 do
-      post("/keyword/upload", KeywordController, :create)
+      post("/keyword", KeywordController, :create)
     end
   end
 end

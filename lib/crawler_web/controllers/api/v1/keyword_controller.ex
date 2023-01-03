@@ -17,7 +17,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
         parse_uploaded_file(conn, changeset.changes)
 
       false ->
-        show_error_flash_message_and_redirects_to_dasboard(
+        render_error_message(
           conn,
           gettext("The file doesn't look like CSV")
         )
@@ -54,13 +54,13 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   defp process_validation_error(conn, reason) do
     case reason do
       :file_empty ->
-        show_error_flash_message_and_redirects_to_dasboard(
+        render_error_message(
           conn,
           gettext("The file is empty")
         )
 
       :file_length_exceeded ->
-        show_error_flash_message_and_redirects_to_dasboard(
+        render_error_message(
           conn,
           gettext("The file is too big, allowed size is up to %{limit} keywords",
             limit: CSVParser.keywords_limit()
@@ -68,7 +68,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
         )
 
       :keyword_length_exceeded ->
-        show_error_flash_message_and_redirects_to_dasboard(
+        render_error_message(
           conn,
           gettext("One or more keywords are invalid! Allowed keyword length is %{min}-%{max}",
             min: CSVParser.keyword_min_length(),
@@ -78,7 +78,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
     end
   end
 
-  defp show_error_flash_message_and_redirects_to_dasboard(conn, message) do
+  defp render_error_message(conn, message) do
     conn
     |> put_view(ErrorView)
     |> put_status(:unprocessable_entity)
