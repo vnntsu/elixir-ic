@@ -30,7 +30,10 @@ defmodule CrawlerWeb.KeywordController do
           Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
 
         conn
-        |> put_flash(:info, "#{num_keyword} #{gettext("keywords were uploaded!")}")
+        |> put_flash(
+          :info,
+          gettext("%{num_keyword} keywords were uploaded!", num_keyword: num_keyword)
+        )
         |> redirect(to: Routes.home_path(conn, :index))
 
       {:error, reason} ->
