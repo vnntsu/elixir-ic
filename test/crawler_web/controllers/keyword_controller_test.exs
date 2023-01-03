@@ -2,6 +2,7 @@ defmodule CrawlerWeb.KeywordControllerTest do
   use CrawlerWeb.ConnCase, async: true
 
   alias Crawler.Keyword.Keywords
+  alias Crawler.Keyword.Schemas.Keyword
 
   describe "POST /keyword" do
     test "given valid keyword csv file, creates keyword successfully", %{conn: conn} do
@@ -13,16 +14,13 @@ defmodule CrawlerWeb.KeywordControllerTest do
         |> log_in_user(user)
         |> post(Routes.keyword_path(conn, :create), %{keyword_csv_file: %{file: uploaded_file}})
 
-      assert get_flash(conn, :info) == gettext("Keywords were uploaded!")
+      assert get_flash(conn, :info) == "3 #{gettext("keywords were uploaded!")}"
 
       keywords = Keywords.list_keywords(user.id)
 
-      list =
-        Enum.map(keywords, fn keyword ->
-          keyword.name
-        end)
+      assert length(keywords) == 3
 
-      assert list == ["one", "two", "three"]
+      assert [%Keyword{name: "one"}, %Keyword{name: "two"}, %Keyword{name: "three"}] = keywords
     end
 
     test "given empty file, shows validation error", %{conn: conn} do

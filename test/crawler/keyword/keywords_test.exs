@@ -25,6 +25,12 @@ defmodule Crawler.Keyword.KeywordsTest do
       assert keyword.user_id == user_id
       assert keyword.name == "keyword"
     end
+
+    test "given an invalid keyword data, returns error" do
+      keyword_params = %{name: ""}
+
+      assert {:error, _reason} = Keywords.create_keyword(keyword_params)
+    end
   end
 
   describe "create_keyword_list/2" do
@@ -33,6 +39,14 @@ defmodule Crawler.Keyword.KeywordsTest do
       Keywords.create_keyword_list(["first", "second"], user_id)
 
       assert length(Keywords.list_keywords(user_id)) == 2
+    end
+
+    test "given a keyword list with the wrong user, does not return saved keyword list" do
+      %{id: user_id} = insert(:user)
+      %{id: expected_user_id} = insert(:user)
+      Keywords.create_keyword_list(["first", "second"], user_id)
+
+      assert length(Keywords.list_keywords(expected_user_id)) == []
     end
   end
 end

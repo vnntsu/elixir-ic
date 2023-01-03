@@ -13,7 +13,7 @@ defmodule CrawlerWeb.KeywordController do
 
     case changeset.valid? do
       true ->
-        parse_uploaded_file(conn, changeset.changes)
+        process_uploaded_file(conn, changeset.changes)
 
       false ->
         show_error_flash_message_and_redirects_to_dasboard(
@@ -23,13 +23,14 @@ defmodule CrawlerWeb.KeywordController do
     end
   end
 
-  defp parse_uploaded_file(conn, changes) do
+  defp process_uploaded_file(conn, changes) do
     case CSVParser.parse(changes.file.path) do
       {:ok, keyword_list} ->
-        Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
+        {num_keyword, _list} =
+          Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
 
         conn
-        |> put_flash(:info, gettext("Keywords were uploaded!"))
+        |> put_flash(:info, "#{num_keyword} #{gettext("keywords were uploaded!")}")
         |> redirect(to: Routes.home_path(conn, :index))
 
       {:error, reason} ->

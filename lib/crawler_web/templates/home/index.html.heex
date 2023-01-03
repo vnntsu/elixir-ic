@@ -40,10 +40,10 @@
             </tr>
           </thead>
           <tbody>
-            <%= for {keyword, i} <- Enum.with_index(@keywords, 1) do %>
+            <%= for keyword <- @keywords do %>
               <tr>
                 <td>
-                  <%= i %>
+                  <%= keyword.id %>
                 </td>
                 <td>
                   <%= keyword.name %>
