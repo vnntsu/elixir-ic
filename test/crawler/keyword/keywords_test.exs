@@ -46,7 +46,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: expected_user_id} = insert(:user)
       Keywords.create_keyword_list(["first", "second"], user_id)
 
-      assert length(Keywords.list_keywords(expected_user_id)) == []
+      assert Keywords.list_keywords(expected_user_id) == []
     end
   end
 end
