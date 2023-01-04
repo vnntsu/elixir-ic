@@ -82,3 +82,82 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Internal server error"
 msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Keyword"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:73
+#: lib/crawler_web/controllers/keyword_controller.ex:63
+#, elixir-autogen, elixir-format
+msgid "One or more keywords are invalid! Allowed keyword length is %{min}-%{max}"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Please choose a CSV file:"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "Updated"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Upload"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:22
+#: lib/crawler_web/controllers/keyword_controller.ex:21
+#, elixir-autogen, elixir-format
+msgid "The file doesn't look like CSV"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:59
+#: lib/crawler_web/controllers/keyword_controller.ex:49
+#, elixir-autogen, elixir-format
+msgid "The file is empty"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:65
+#: lib/crawler_web/controllers/keyword_controller.ex:55
+#, elixir-autogen, elixir-format
+msgid "The file is too big, allowed size is up to %{limit} keywords"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "You don't have keywords yet, please upload a CSV file."
+msgstr ""
+
+#: lib/crawler/keyword/schemas/keyword_csv_file.ex:23
+#, elixir-autogen, elixir-format
+msgid "Uploaded file is not a valid CSV file"
+msgstr ""
+
+#: lib/crawler_web/controllers/keyword_controller.ex:35
+#, elixir-autogen, elixir-format
+msgid "%{num_keyword} keywords were uploaded!"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:45
+#, elixir-autogen, elixir-format
+msgid "Keywords were uploaded!"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:33
+#, elixir-autogen, elixir-format
+msgid "Missing csv file, please add keyword_csv_file to the request's body"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/auth_error_handler.ex:14
+#, elixir-autogen, elixir-format
+msgid "Unauthorized"
+msgstr ""

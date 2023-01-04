@@ -21,16 +21,16 @@ defmodule Crawler.DataCase do
   using do
     quote do
       use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-
       use Mimic
 
-      alias Crawler.Repo
-
+      import Crawler.DataCase
+      import Crawler.Factory
+      import CrawlerWeb.Gettext
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Crawler.DataCase
-      import Crawler.Factory
+
+      alias Crawler.Repo
     end
   end
 

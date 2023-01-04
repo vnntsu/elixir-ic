@@ -20,6 +20,7 @@ defmodule CrawlerWeb.ConnCase do
   import Crawler.Factory
 
   alias Crawler.Account.Accounts
+  alias Crawler.Account.Guardian
 
   using do
     quote do
@@ -71,4 +72,6 @@ defmodule CrawlerWeb.ConnCase do
     |> Phoenix.ConnTest.init_test_session(%{})
     |> Plug.Conn.put_session(:user_token, token)
   end
+
+  def auth_with_user(conn, user \\ insert(:user)), do: Guardian.Plug.sign_in(conn, user)
 end
