@@ -26,13 +26,12 @@ defmodule CrawlerWeb.KeywordController do
   defp process_uploaded_file(conn, changes) do
     case CSVParser.parse(changes.file.path) do
       {:ok, keyword_list} ->
-        {num_keyword, _list} =
-          Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
+        keyword_ids = Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
 
         conn
         |> put_flash(
           :info,
-          gettext("%{num_keyword} keywords were uploaded!", num_keyword: num_keyword)
+          gettext("%{num_keyword} keywords were uploaded!", num_keyword: length(keyword_ids))
         )
         |> redirect(to: Routes.home_path(conn, :index))
 
