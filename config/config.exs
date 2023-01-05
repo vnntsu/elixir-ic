@@ -63,7 +63,7 @@ config :phoenix, :json_library, Jason
 config :crawler, Oban,
   repo: Crawler.Repo,
   plugins: [Oban.Plugins.Pruner],
-  queues: [default: 10]
+  queues: [default: 10, crawler: 10]
 
 config :jsonapi,
   remove_links: true,
