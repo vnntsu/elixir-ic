@@ -5,8 +5,8 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
     tags: ["keyword"],
     unique: [period: 30]
 
-  alias Crawler.Keyword.Keywords
   alias Crawler.Keyword.Helpers.GoogleCrawler
+  alias Crawler.Keyword.Keywords
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"keyword_id" => keyword_id}}) do
