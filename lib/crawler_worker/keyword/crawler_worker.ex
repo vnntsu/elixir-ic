@@ -23,12 +23,4 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
         {:error, reason}
     end
   end
-
-  def enqueue_keywords(keyword_ids) do
-    Enum.each(keyword_ids, fn id ->
-      %{"keyword_id" => id}
-      |> new()
-      |> Oban.insert()
-    end)
-  end
 end

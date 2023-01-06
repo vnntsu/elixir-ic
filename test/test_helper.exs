@@ -6,6 +6,7 @@ Code.put_compiler_option(:warnings_as_errors, true)
 
 Mimic.copy(Ecto.Adapters.SQL)
 Mimic.copy(Crawler.Account.Guardian)
+Mimic.copy(HTTPoison)
 
 {:ok, _} = Application.ensure_all_started(:wallaby)
 

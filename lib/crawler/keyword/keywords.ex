@@ -8,6 +8,7 @@ defmodule Crawler.Keyword.Keywords do
   alias Crawler.Keyword.Queries.KeywordQuery
   alias Crawler.Keyword.Schemas.Keyword
   alias Crawler.Repo
+  alias CrawlerWorker.Keyword.CrawlerWorker
 
   def list_keywords(user_id), do: Repo.all(KeywordQuery.user_keywords_query(user_id))
 
@@ -21,15 +22,23 @@ defmodule Crawler.Keyword.Keywords do
 
   def create_keyword_list(keyword_list, user_id) do
     create_keyword_fn = fn k ->
-      case create_keyword(k) do
-        {:ok, keyword} -> keyword.id
-        {:error, changeset} -> throw({:error, changeset})
-      end
+      {:ok, %{id: keyword_id}} = create_keyword(k)
+      keyword_id
     end
 
-    keyword_list
-    |> build_keyword_params_list(user_id)
-    |> Enum.map(create_keyword_fn)
+    {:ok, keyword_ids} =
+      Repo.transaction(fn ->
+        keyword_ids =
+          keyword_list
+          |> build_keyword_params_list(user_id)
+          |> Enum.map(create_keyword_fn)
+
+        enqueue_crawling_job(keyword_ids)
+
+        keyword_ids
+      end)
+
+    keyword_ids
   end
 
   def mark_as_in_progress(keyword) do
@@ -55,6 +64,14 @@ defmodule Crawler.Keyword.Keywords do
 
     Enum.map(keyword_list, fn keyword ->
       %{name: keyword, user_id: user_id, inserted_at: now, updated_at: now}
+    end)
+  end
+
+  defp enqueue_crawling_job(keyword_ids) do
+    Enum.each(keyword_ids, fn id ->
+      %{"keyword_id" => id}
+      |> CrawlerWorker.new()
+      |> Oban.insert()
     end)
   end
 end
