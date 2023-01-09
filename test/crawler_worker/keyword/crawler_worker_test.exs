@@ -20,6 +20,20 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
       end
     end
 
+    test "given status_code is 400, set keyword status failed" do
+      expect(HTTPoison, :get, fn _, _ -> {:ok, %{status_code: 400}} end)
+
+      keyword = insert(:keyword)
+
+      %{keyword_id: keyword.id}
+      |> CrawlerWorker.new()
+      |> Oban.insert()
+
+      stored_keyword = Keywords.get_keyword_by_id(keyword.id)
+
+      assert stored_keyword.status == :failed
+    end
+
     test "given error for keyword searching, set keyword status failed" do
       expect(HTTPoison, :get, fn _, _ -> {:error, %{reason: :error}} end)
 

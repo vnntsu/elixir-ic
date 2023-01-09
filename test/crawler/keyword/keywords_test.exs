@@ -31,6 +31,13 @@ defmodule Crawler.Keyword.KeywordsTest do
 
       assert {:error, _reason} = Keywords.create_keyword(keyword_params)
     end
+
+    test "given the list of keywords with invalid keyword, does not save keywords" do
+      %{id: user_id} = insert(:user)
+
+      assert {:error, _reason} = Keywords.create_keyword_list(["one", ""], user_id)
+      assert Keywords.list_keywords(user_id) == []
+    end
   end
 
   describe "create_keyword_list/2" do

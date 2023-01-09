@@ -22,12 +22,15 @@ defmodule Crawler.Keyword.Keywords do
 
   def create_keyword_list(keyword_list, user_id) do
     create_keyword_fn = fn k ->
-      {:ok, %{id: keyword_id}} = create_keyword(k)
-      keyword_id
+      case create_keyword(k) do
+        {:ok, %{id: keyword_id}} -> keyword_id
+        # throw  error if a keyword is incvalid
+        {:error, changeset} -> throw({:error, changeset})
+      end
     end
 
-    {:ok, keyword_ids} =
-      Repo.transaction(fn ->
+    Repo.transaction(fn ->
+      try do
         keyword_ids =
           keyword_list
           |> build_keyword_params_list(user_id)
@@ -36,9 +39,11 @@ defmodule Crawler.Keyword.Keywords do
         enqueue_crawling_job(keyword_ids)
 
         keyword_ids
-      end)
-
-    keyword_ids
+      catch
+        # TODO: handle to show error
+        {:error, _changeset} -> Repo.rollback(:keyword_length_exceeded)
+      end
+    end)
   end
 
   def mark_as_in_progress(keyword) do
@@ -60,18 +65,14 @@ defmodule Crawler.Keyword.Keywords do
   end
 
   defp build_keyword_params_list(keyword_list, user_id) do
-    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
-
     Enum.map(keyword_list, fn keyword ->
-      %{name: keyword, user_id: user_id, inserted_at: now, updated_at: now}
+      %{name: keyword, user_id: user_id}
     end)
   end
 
   defp enqueue_crawling_job(keyword_ids) do
-    Enum.each(keyword_ids, fn id ->
-      %{"keyword_id" => id}
-      |> CrawlerWorker.new()
-      |> Oban.insert()
-    end)
+    keyword_ids
+    |> Enum.map(fn id -> CrawlerWorker.new(%{"keyword_id" => id}) end)
+    |> Oban.insert_all()
   end
 end

@@ -5,7 +5,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
     tags: ["keyword"],
     unique: [period: 30]
 
-  alias Crawler.Keyword.Helpers.GoogleCrawler
+  alias Crawler.Google.Client, as: GoogleClient
   alias Crawler.Keyword.Keywords
 
   @impl Oban.Worker
@@ -13,7 +13,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
     keyword = Keywords.get_keyword_by_id(keyword_id)
     Keywords.mark_as_in_progress(keyword)
 
-    case GoogleCrawler.crawl(keyword.name) do
+    case GoogleClient.crawl(keyword.name) do
       {:ok, html} ->
         Keywords.mark_as_completed(keyword, %{html: html})
         :ok

@@ -1,4 +1,4 @@
-defmodule Crawler.Keyword.Helpers.GoogleCrawler do
+defmodule Crawler.Google.Client do
   @google_search_url "https://www.google.com/search"
   @headers [
     {
@@ -19,6 +19,7 @@ defmodule Crawler.Keyword.Helpers.GoogleCrawler do
 
     case response do
       {:ok, %{status_code: 200, body: body}} -> {:ok, body}
+      {:ok, %{status_code: status_code}} -> {:error, status_code}
       {:error, %{reason: reason}} -> {:error, reason}
     end
   end
