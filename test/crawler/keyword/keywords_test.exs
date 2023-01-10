@@ -56,4 +56,38 @@ defmodule Crawler.Keyword.KeywordsTest do
       assert Keywords.list_keywords(expected_user_id) == []
     end
   end
+
+  describe "mark_as_in_progress/1" do
+    test "given a valid keyword, updates keyword's status to in_progress" do
+      %{id: user_id} = insert(:user)
+      keyword = insert(:keyword, user_id: user_id)
+
+      Keywords.mark_as_in_progress(keyword)
+      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      assert updated_keyword.status == :in_progress
+    end
+  end
+
+  describe "mark_as_completed/1" do
+    test "given a valid keyword, updates keyword's status to completed" do
+      %{id: user_id} = insert(:user)
+      keyword = insert(:keyword, user_id: user_id)
+
+      Keywords.mark_as_completed(keyword, %{html: "html"})
+      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      assert updated_keyword.status == :completed
+      assert updated_keyword.html == "html"
+    end
+  end
+
+  describe "mark_as_failed/1" do
+    test "given a valid keyword, updates keyword's status to failed" do
+      %{id: user_id} = insert(:user)
+      keyword = insert(:keyword, user_id: user_id)
+
+      Keywords.mark_as_failed(keyword)
+      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      assert updated_keyword.status == :failed
+    end
+  end
 end

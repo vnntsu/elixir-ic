@@ -16,6 +16,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
 
         assert stored_keyword.status == :completed
         assert is_binary(stored_keyword.html)
+        assert stored_keyword.html =~ "ios"
       end
     end
 
@@ -29,6 +30,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
       stored_keyword = Keywords.get_keyword_by_id(keyword.id)
 
       assert stored_keyword.status == :failed
+      assert stored_keyword.html == nil
     end
 
     test "given error for keyword searching, set keyword status failed" do
@@ -41,6 +43,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
       stored_keyword = Keywords.get_keyword_by_id(keyword.id)
 
       assert stored_keyword.status == :failed
+      assert stored_keyword.html == nil
     end
   end
 end
