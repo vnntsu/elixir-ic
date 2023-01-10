@@ -5,39 +5,37 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
 
   describe "POST /keyword/upload" do
     test "given valid keyword csv file, creates keywords and returns 200", %{conn: conn} do
-      use_cassette "crawl/ios_success" do
-        user = insert(:user)
-        uploaded_file = keyword_file_fixture("valid.csv")
-        detail = gettext("Keywords were uploaded!")
+      user = insert(:user)
+      uploaded_file = keyword_file_fixture("valid.csv")
+      detail = gettext("Keywords were uploaded!")
 
-        conn =
-          conn
-          |> auth_with_user(user)
-          |> post(Routes.api_v1_keyword_path(conn, :create), %{
-            keyword_csv_file: uploaded_file
-          })
+      conn =
+        conn
+        |> auth_with_user(user)
+        |> post(Routes.api_v1_keyword_path(conn, :create), %{
+          keyword_csv_file: uploaded_file
+        })
 
-        assert %{
-                 "data" => %{
-                   "attributes" => %{
-                     "message" => ^detail
-                   },
-                   "id" => _,
-                   "relationships" => %{},
-                   "type" => "keyword"
+      assert %{
+               "data" => %{
+                 "attributes" => %{
+                   "message" => ^detail
                  },
-                 "included" => []
-               } = json_response(conn, 200)
+                 "id" => _,
+                 "relationships" => %{},
+                 "type" => "keyword"
+               },
+               "included" => []
+             } = json_response(conn, 200)
 
-        keywords = Keywords.list_keywords(user.id)
+      keywords = Keywords.list_keywords(user.id)
 
-        list =
-          Enum.map(keywords, fn keyword ->
-            keyword.name
-          end)
+      list =
+        Enum.map(keywords, fn keyword ->
+          keyword.name
+        end)
 
-        assert list == ["one", "two", "three"]
-      end
+      assert list == ["one", "two", "three"]
     end
 
     test "given empty file, returns 422 status", %{conn: conn} do
