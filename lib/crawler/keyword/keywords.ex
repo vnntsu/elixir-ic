@@ -24,7 +24,7 @@ defmodule Crawler.Keyword.Keywords do
     create_keyword_fn = fn k ->
       case create_keyword(k) do
         {:ok, %{id: keyword_id}} -> keyword_id
-        # throw  error if a keyword is incvalid
+        # throw  error if a keyword is invalid
         {:error, changeset} -> throw({:error, changeset})
       end
     end

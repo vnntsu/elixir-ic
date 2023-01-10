@@ -5,28 +5,26 @@ defmodule CrawlerWeb.KeywordControllerTest do
 
   describe "POST /keyword" do
     test "given valid keyword csv file, creates keyword successfully", %{conn: conn} do
-      use_cassette "crawl/ios_success" do
-        user = insert(:user)
-        uploaded_file = keyword_file_fixture("valid.csv")
+      user = insert(:user)
+      uploaded_file = keyword_file_fixture("valid.csv")
 
-        conn =
-          conn
-          |> log_in_user(user)
-          |> post(Routes.keyword_path(conn, :create), %{keyword_csv_file: %{file: uploaded_file}})
+      conn =
+        conn
+        |> log_in_user(user)
+        |> post(Routes.keyword_path(conn, :create), %{keyword_csv_file: %{file: uploaded_file}})
 
-        assert get_flash(conn, :info) ==
-                 gettext("%{num_keyword} keywords were uploaded!", num_keyword: 3)
+      assert get_flash(conn, :info) ==
+               gettext("%{num_keyword} keywords were uploaded!", num_keyword: 3)
 
-        keywords = Keywords.list_keywords(user.id)
+      keywords = Keywords.list_keywords(user.id)
 
-        assert length(keywords) == 3
+      assert length(keywords) == 3
 
-        created_keyword_names = Enum.map(keywords, fn k -> k.name end)
+      created_keyword_names = Enum.map(keywords, fn k -> k.name end)
 
-        assert "one" in created_keyword_names == true
-        assert "two" in created_keyword_names == true
-        assert "three" in created_keyword_names == true
-      end
+      assert "one" in created_keyword_names == true
+      assert "two" in created_keyword_names == true
+      assert "three" in created_keyword_names == true
     end
 
     test "given empty file, shows validation error", %{conn: conn} do

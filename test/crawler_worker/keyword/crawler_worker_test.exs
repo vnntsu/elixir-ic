@@ -5,13 +5,12 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
   alias CrawlerWorker.Keyword.CrawlerWorker
 
   describe "perform/1" do
-    test "given a keyword, returns and stores the HTML result" do
-      use_cassette "crawl/ios_success" do
-        keyword = insert(:keyword, name: "ios")
+    test "given successfully finished job, returns and stores the HTML result" do
+      keyword = insert(:keyword, name: "ios")
+      args = %{keyword_id: keyword.id}
 
-        %{keyword_id: keyword.id}
-        |> CrawlerWorker.new()
-        |> Oban.insert()
+      use_cassette "crawl/ios_success" do
+        assert perform_job(CrawlerWorker, args) == :ok
 
         stored_keyword = Keywords.get_keyword_by_id(keyword.id)
 
@@ -22,12 +21,10 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
 
     test "given status_code is 400, set keyword status failed" do
       expect(HTTPoison, :get, fn _, _ -> {:ok, %{status_code: 400}} end)
-
       keyword = insert(:keyword)
+      args = %{keyword_id: keyword.id}
 
-      %{keyword_id: keyword.id}
-      |> CrawlerWorker.new()
-      |> Oban.insert()
+      assert perform_job(CrawlerWorker, args) == {:error, 400}
 
       stored_keyword = Keywords.get_keyword_by_id(keyword.id)
 
@@ -36,12 +33,10 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
 
     test "given error for keyword searching, set keyword status failed" do
       expect(HTTPoison, :get, fn _, _ -> {:error, %{reason: :error}} end)
-
       keyword = insert(:keyword)
+      args = %{keyword_id: keyword.id}
 
-      %{keyword_id: keyword.id}
-      |> CrawlerWorker.new()
-      |> Oban.insert()
+      assert perform_job(CrawlerWorker, args) == {:error, :error}
 
       stored_keyword = Keywords.get_keyword_by_id(keyword.id)
 

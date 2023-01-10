@@ -42,22 +42,18 @@ defmodule Crawler.Keyword.KeywordsTest do
 
   describe "create_keyword_list/2" do
     test "given a valid list of keywords, returns a saved keyword list" do
-      use_cassette "crawl/ios_success" do
-        %{id: user_id} = insert(:user)
-        Keywords.create_keyword_list(["first", "second"], user_id)
+      %{id: user_id} = insert(:user)
+      Keywords.create_keyword_list(["first", "second"], user_id)
 
-        assert length(Keywords.list_keywords(user_id)) == 2
-      end
+      assert length(Keywords.list_keywords(user_id)) == 2
     end
 
     test "given a keyword list with the wrong user, does not return saved keyword list" do
-      use_cassette "crawl/ios_success" do
-        %{id: user_id} = insert(:user)
-        %{id: expected_user_id} = insert(:user)
-        Keywords.create_keyword_list(["first", "second"], user_id)
+      %{id: user_id} = insert(:user)
+      %{id: expected_user_id} = insert(:user)
+      Keywords.create_keyword_list(["first", "second"], user_id)
 
-        assert Keywords.list_keywords(expected_user_id) == []
-      end
+      assert Keywords.list_keywords(expected_user_id) == []
     end
   end
 end
