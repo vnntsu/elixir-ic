@@ -160,3 +160,28 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Unauthorized"
 msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:19
+#, elixir-autogen, elixir-format
+msgid "Completed"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:17
+#, elixir-autogen, elixir-format
+msgid "Crawling"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:18
+#, elixir-autogen, elixir-format
+msgid "Failed"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:16
+#, elixir-autogen, elixir-format
+msgid "New"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:20
+#, elixir-autogen, elixir-format
+msgid "Undefined"
+msgstr ""
