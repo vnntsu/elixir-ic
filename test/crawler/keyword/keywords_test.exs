@@ -20,9 +20,9 @@ defmodule Crawler.Keyword.KeywordsTest do
   describe "create_keyword/1" do
     test "given a valid keyword data, creates a keyword" do
       %{id: user_id} = insert(:user)
-      keyword = %{name: "keyword", user_id: user_id}
+      keyword_params = %{name: "keyword", user_id: user_id}
 
-      assert {:ok, %Keyword{} = keyword} = Keywords.create_keyword(keyword)
+      assert {:ok, %Keyword{} = keyword} = Keywords.create_keyword(keyword_params)
       assert keyword.user_id == user_id
       assert keyword.name == "keyword"
     end
