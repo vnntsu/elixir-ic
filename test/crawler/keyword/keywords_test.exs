@@ -3,6 +3,7 @@ defmodule Crawler.Keyword.KeywordsTest do
 
   alias Crawler.Keyword.Keywords
   alias Crawler.Keyword.Schemas.Keyword
+  alias CrawlerWorker.Keyword.CrawlerWorker
 
   describe "list_keywords/1" do
     test "given a valid user id, returns user's keyword list" do
@@ -19,9 +20,9 @@ defmodule Crawler.Keyword.KeywordsTest do
   describe "create_keyword/1" do
     test "given a valid keyword data, creates a keyword" do
       %{id: user_id} = insert(:user)
-      keyword_params = %{name: "keyword", user_id: user_id}
+      keyword = %{name: "keyword", user_id: user_id}
 
-      assert {:ok, %Keyword{} = keyword} = Keywords.create_keyword(keyword_params)
+      assert {:ok, %Keyword{} = keyword} = Keywords.create_keyword(keyword)
       assert keyword.user_id == user_id
       assert keyword.name == "keyword"
     end
@@ -43,9 +44,13 @@ defmodule Crawler.Keyword.KeywordsTest do
   describe "create_keyword_list/2" do
     test "given a valid list of keywords, returns a saved keyword list" do
       %{id: user_id} = insert(:user)
-      Keywords.create_keyword_list(["first", "second"], user_id)
 
+      assert {:ok, keyword_ids} = Keywords.create_keyword_list(["first", "second"], user_id)
       assert length(Keywords.list_keywords(user_id)) == 2
+
+      assert [first_keyword_id, second_keyword_id] = keyword_ids
+      assert_enqueued(worker: CrawlerWorker, args: %{keyword_id: first_keyword_id})
+      assert_enqueued(worker: CrawlerWorker, args: %{keyword_id: second_keyword_id})
     end
 
     test "given a keyword list with the wrong user, does not return saved keyword list" do
