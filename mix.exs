@@ -53,6 +53,7 @@ defmodule Crawler.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.18"},
       {:guardian, "~> 2.3.1"},
+      {:httpoison, "~> 1.8"},
       {:jason, "~> 1.2"},
       {:jsonapi, "~> 1.4.0"},
       {:mimic, "~> 1.7.4", [only: :test]},

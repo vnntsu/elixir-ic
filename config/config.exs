@@ -63,7 +63,11 @@ config :phoenix, :json_library, Jason
 config :crawler, Oban,
   repo: Crawler.Repo,
   plugins: [Oban.Plugins.Pruner],
-  queues: [default: 10]
+  queues: [
+    default: 10,
+    # 5 jobs per second - by pass Google threshold
+    crawler: [limit: 5, dispatch_cooldown: :timer.seconds(1)]
+  ]
 
 config :jsonapi,
   remove_links: true,

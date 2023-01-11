@@ -22,6 +22,7 @@ defmodule Crawler.DataCase do
     quote do
       use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
       use Mimic
+      use Oban.Testing, repo: Crawler.Repo
 
       import Crawler.DataCase
       import Crawler.Factory
