@@ -13,11 +13,11 @@ defmodule CrawlerWeb.HomeView do
 
   def get_status(value) do
     case value do
-      :new -> "New"
-      :in_progress -> "Crawling"
-      :failed -> "Failed"
-      :completed -> "Completed"
-      _ -> "Undefined"
+      :new -> gettext("New")
+      :in_progress -> gettext("Crawling")
+      :failed -> gettext("Failed")
+      :completed -> gettext("Completed")
+      _ -> gettext("Undefined")
     end
   end
 end

@@ -22,18 +22,18 @@ defmodule CrawlerWeb.HomeViewTest do
 
   describe "get_status/2" do
     test "given status new, returns text-info",
-      do: assert(HomeView.get_status(:new) == "New")
+      do: assert(HomeView.get_status(:new) == gettext("New"))
 
     test "given status in_progress, returns text-info",
-      do: assert(HomeView.get_status(:in_progress) == "Crawling")
+      do: assert(HomeView.get_status(:in_progress) == gettext("Crawling"))
 
     test "given status completed, returns text-info",
-      do: assert(HomeView.get_status(:completed) == "Completed")
+      do: assert(HomeView.get_status(:completed) == gettext("Completed"))
 
     test "given status failed, returns text-info",
-      do: assert(HomeView.get_status(:failed) == "Failed")
+      do: assert(HomeView.get_status(:failed) == gettext("Failed"))
 
     test "given status undefined, returns text-info",
-      do: assert(HomeView.get_status(:undefined) == "Undefined")
+      do: assert(HomeView.get_status(:undefined) == gettext("Undefined"))
   end
 end
