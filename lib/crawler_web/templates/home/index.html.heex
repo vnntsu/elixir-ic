@@ -23,42 +23,7 @@
         <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
       </p>
     <% else %>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">
-                <%= gettext("Keyword") %>
-              </th>
-              <th scope="col">
-                <%= gettext("Status") %>
-              </th>
-              <th scope="col">
-                <%= gettext("Updated") %> (UTC)
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= for keyword <- @keywords do %>
-              <tr>
-                <td>
-                  <%= keyword.id %>
-                </td>
-                <td>
-                  <%= keyword.name %>
-                </td>
-                <td>
-                  <%= keyword.status %>
-                </td>
-                <td>
-                  <%= Calendar.strftime(keyword.updated_at, "%Y-%m-%d %H:%M") %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= render("_keyword_list.html", keywords: @keywords) %>
     <% end %>
   </div>
 </div>

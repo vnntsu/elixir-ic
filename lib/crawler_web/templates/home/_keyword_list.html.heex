@@ -1,0 +1,36 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" class="w-50">
+          <%= gettext("Keyword") %>
+        </th>
+        <th scope="col">
+          <%= gettext("Status") %>
+        </th>
+        <th scope="col">
+          <%= gettext("Updated") %> (UTC)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for keyword <- @keywords do %>
+        <tr>
+          <td>
+            <%= keyword.id %>
+          </td>
+          <td class="w-50">
+            <%= keyword.name %>
+          </td>
+          <td class={get_column_status(keyword.status)}>
+            <%= get_status(keyword.status) %>
+          </td>
+          <td>
+            <%= Calendar.strftime(keyword.updated_at, "%Y-%m-%d %H:%M") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
