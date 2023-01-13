@@ -21,11 +21,5 @@ defmodule Crawler.Keyword.Helpers.CSVParserTests do
 
       assert CSVParser.parse(file_path) == {:error, :file_length_exceeded}
     end
-
-    test "given an file with invalid keywords, returns an error" do
-      %{path: file_path} = keyword_file_fixture("non_valid.csv")
-
-      assert CSVParser.parse(file_path) == {:error, :keyword_length_exceeded}
-    end
   end
 end

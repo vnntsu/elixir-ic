@@ -3,7 +3,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
 
   alias Crawler.Keyword.Helpers.CSVParser
   alias Crawler.Keyword.Keywords
-  alias Crawler.Keyword.Schemas.KeywordCSVFile
+  alias Crawler.Keyword.Schemas.{Keyword, KeywordCSVFile}
   alias CrawlerWeb.Api.ErrorView
 
   def create(conn, %{"keyword_csv_file" => params}) do
@@ -35,17 +35,16 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   end
 
   defp parse_uploaded_file(conn, changes) do
-    case CSVParser.parse(changes.file.path) do
-      {:ok, keyword_list} ->
-        Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id)
-
-        render(conn, "show.json", %{
-          data: %{
-            id: :os.system_time(:millisecond),
-            message: gettext("Keywords were uploaded!")
-          }
-        })
-
+    with {:ok, keyword_list} <- CSVParser.parse(changes.file.path),
+         {:ok, _keyword_ids} <-
+           Keywords.create_keyword_list(keyword_list, conn.assigns.current_user.id) do
+      render(conn, "show.json", %{
+        data: %{
+          id: :os.system_time(:millisecond),
+          message: gettext("Keywords were uploaded!")
+        }
+      })
+    else
       {:error, reason} ->
         process_validation_error(conn, reason)
     end
@@ -71,8 +70,8 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
         render_error_message(
           conn,
           gettext("One or more keywords are invalid! Allowed keyword length is %{min}-%{max}",
-            min: CSVParser.keyword_min_length(),
-            max: CSVParser.keyword_max_length()
+            min: Keyword.min_length(),
+            max: Keyword.max_length()
           )
         )
     end
