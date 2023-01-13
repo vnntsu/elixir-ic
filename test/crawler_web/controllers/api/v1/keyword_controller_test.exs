@@ -30,13 +30,12 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
 
       keywords = Keywords.list_keywords(user.id)
 
-      assert length(keywords) == 3
+      list =
+        Enum.map(keywords, fn keyword ->
+          keyword.name
+        end)
 
-      created_keyword_names = Enum.map(keywords, fn k -> k.name end)
-
-      assert "one" in created_keyword_names == true
-      assert "two" in created_keyword_names == true
-      assert "three" in created_keyword_names == true
+      assert list == ["one", "two", "three"]
     end
 
     test "given empty file, returns 422 status", %{conn: conn} do
