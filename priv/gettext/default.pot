@@ -82,7 +82,7 @@ msgstr ""
 msgid "Internal server error"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:32
+#: lib/crawler_web/templates/home/_keyword_list.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Keyword"
 msgstr ""
@@ -98,12 +98,12 @@ msgstr ""
 msgid "Please choose a CSV file:"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:35
+#: lib/crawler_web/templates/home/_keyword_list.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "Status"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:38
+#: lib/crawler_web/templates/home/_keyword_list.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "Updated"
 msgstr ""
@@ -159,4 +159,29 @@ msgstr ""
 #: lib/crawler_web/controllers/api/auth_error_handler.ex:14
 #, elixir-autogen, elixir-format
 msgid "Unauthorized"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:19
+#, elixir-autogen, elixir-format
+msgid "Completed"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:17
+#, elixir-autogen, elixir-format
+msgid "Crawling"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:18
+#, elixir-autogen, elixir-format
+msgid "Failed"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:16
+#, elixir-autogen, elixir-format
+msgid "New"
+msgstr ""
+
+#: lib/crawler_web/views/home_view.ex:20
+#, elixir-autogen, elixir-format
+msgid "Undefined"
 msgstr ""
