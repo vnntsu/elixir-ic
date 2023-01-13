@@ -7,6 +7,7 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
 
   alias Crawler.Google.Client, as: GoogleClient
   alias Crawler.Keyword.Keywords
+  alias Crawler.Keyword.KeywordExtractor
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: %{"keyword_id" => keyword_id}}) do
@@ -15,7 +16,8 @@ defmodule CrawlerWorker.Keyword.CrawlerWorker do
 
     case GoogleClient.crawl(keyword.name) do
       {:ok, html} ->
-        Keywords.mark_as_completed(keyword, %{html: html})
+        attrs = KeywordExtractor.parse(html)
+        Keywords.mark_as_completed(keyword, Map.merge(attrs, %{html: html}))
         :ok
 
       {:error, reason} ->
