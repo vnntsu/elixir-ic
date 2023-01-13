@@ -3,7 +3,7 @@ defmodule CrawlerWeb.HomeViewTest do
 
   alias CrawlerWeb.HomeView
 
-  describe "get_column_status/2" do
+  describe "get_column_status/1" do
     test "given status new, returns text-info",
       do: assert(HomeView.get_column_status(:new) == "text-info")
 
@@ -20,7 +20,7 @@ defmodule CrawlerWeb.HomeViewTest do
       do: assert(HomeView.get_column_status(:undefined) == "text-muted")
   end
 
-  describe "get_status/2" do
+  describe "get_status/1" do
     test "given status new, returns New",
       do: assert(HomeView.get_status(:new) == gettext("New"))
 
