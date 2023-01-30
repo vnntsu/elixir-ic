@@ -1,6 +1,6 @@
 defmodule Crawler.Keyword.KeywordExtractor do
   @selectors %{
-    ad_top: "#tads div.top-pla-group-inner div.mnr-c",
+    ad_top: "#tads",
     ad_top_count: "div.pla-unit-container",
     urls_ad_top: "a[data-impdclcc]",
     non_ad_count: "#res div.v7W49e",
@@ -31,8 +31,7 @@ defmodule Crawler.Keyword.KeywordExtractor do
   defp urls_ad_top(document) do
     document
     |> Floki.find(@selectors.urls_ad_top)
-    |> Floki.attribute("a", "href")
-    |> Enum.uniq()
+    |> get_urls()
   end
 
   defp ad_total(document) do
@@ -50,13 +49,18 @@ defmodule Crawler.Keyword.KeywordExtractor do
   defp urls_non_ad(document) do
     document
     |> Floki.find(@selectors.non_ad_count)
-    |> Floki.attribute("a", "href")
-    |> Enum.uniq()
+    |> get_urls()
   end
 
   defp total(document) do
     document
     |> Floki.find(@selectors.total)
     |> Enum.count()
+  end
+
+  defp get_urls(document) do
+    document
+    |> Floki.attribute("a", "href")
+    |> Enum.uniq()
   end
 end
