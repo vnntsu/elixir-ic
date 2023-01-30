@@ -51,6 +51,7 @@ defmodule Crawler.Keyword.KeywordExtractor do
     document
     |> Floki.find(@selectors.non_ad_count)
     |> Floki.attribute("a", "href")
+    |> Enum.uniq()
   end
 
   defp total(document) do
