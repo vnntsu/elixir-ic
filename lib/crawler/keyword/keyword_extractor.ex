@@ -9,10 +9,16 @@ defmodule Crawler.Keyword.KeywordExtractor do
   }
 
   def parse(html) do
-    {_, document} = Floki.parse_document(html)
+    case Floki.parse_document(html) do
+      {:ok, document} -> extract_result(document)
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  defp extract_result(document) do
     ad_top_document = Floki.find(document, @selectors.ad_top)
 
-    %{
+    attrs = %{
       ad_top_count: ad_top_count(ad_top_document),
       urls_ad_top: urls_ad_top(ad_top_document),
       ad_total: ad_total(document),
@@ -20,6 +26,8 @@ defmodule Crawler.Keyword.KeywordExtractor do
       urls_non_ad: urls_non_ad(document),
       total: total(document)
     }
+
+    {:ok, attrs}
   end
 
   defp ad_top_count(document) do
