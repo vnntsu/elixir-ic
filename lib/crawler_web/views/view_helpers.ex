@@ -1,8 +1,6 @@
 defmodule CrawlerWeb.ViewHelpers do
   import CrawlerWeb.Gettext
 
-  def is_completed(status), do: status == :completed
-
   def get_status(value) do
     case value do
       :new -> gettext("New")

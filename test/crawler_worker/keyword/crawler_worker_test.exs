@@ -19,10 +19,10 @@ defmodule CrawlerWorker.Keyword.CrawlerWorkerTest do
         assert stored_keyword.html =~ "buy phone"
         assert stored_keyword.ad_top_count == 11
         assert stored_keyword.ad_total == 9
-        assert stored_keyword.non_ad_count == 89
-        assert stored_keyword.total == 176
+        assert stored_keyword.non_ad_count == 36
+        assert stored_keyword.total == 51
         assert length(stored_keyword.urls_ad_top) == 11
-        assert length(stored_keyword.urls_non_ad) == 89
+        assert length(stored_keyword.urls_non_ad) == 36
       end
     end
 

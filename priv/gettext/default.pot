@@ -161,27 +161,27 @@ msgstr ""
 msgid "Unauthorized"
 msgstr ""
 
-#: lib/crawler_web/views/view_helpers.ex:11
+#: lib/crawler_web/views/view_helpers.ex:9
 #, elixir-autogen, elixir-format
 msgid "Completed"
 msgstr ""
 
-#: lib/crawler_web/views/view_helpers.ex:9
+#: lib/crawler_web/views/view_helpers.ex:7
 #, elixir-autogen, elixir-format
 msgid "Crawling"
 msgstr ""
 
-#: lib/crawler_web/views/view_helpers.ex:10
+#: lib/crawler_web/views/view_helpers.ex:8
 #, elixir-autogen, elixir-format
 msgid "Failed"
 msgstr ""
 
-#: lib/crawler_web/views/view_helpers.ex:8
+#: lib/crawler_web/views/view_helpers.ex:6
 #, elixir-autogen, elixir-format
 msgid "New"
 msgstr ""
 
-#: lib/crawler_web/views/view_helpers.ex:12
+#: lib/crawler_web/views/view_helpers.ex:10
 #, elixir-autogen, elixir-format
 msgid "Undefined"
 msgstr ""
@@ -201,27 +201,27 @@ msgstr ""
 msgid "Keyword Info"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:52
+#: lib/crawler_web/templates/keyword/show.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "Non-Ad Count: %{value}"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:93
+#: lib/crawler_web/templates/keyword/show.html.heex:95
 #, elixir-autogen, elixir-format
 msgid "Non-Ad URLs"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:41
+#: lib/crawler_web/templates/keyword/show.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Result Report"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:75
+#: lib/crawler_web/templates/keyword/show.html.heex:77
 #, elixir-autogen, elixir-format
 msgid "Search Result HTML"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:65
+#: lib/crawler_web/templates/keyword/show.html.heex:67
 #, elixir-autogen, elixir-format
 msgid "Searching"
 msgstr ""
@@ -231,32 +231,32 @@ msgstr ""
 msgid "Status: %{value}"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:129
+#: lib/crawler_web/templates/keyword/show.html.heex:142
 #, elixir-autogen, elixir-format
 msgid "There are no Non-Ad URLs"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:113
+#: lib/crawler_web/templates/keyword/show.html.heex:117
 #, elixir-autogen, elixir-format
 msgid "There are no Top-Ad URLs"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:46
+#: lib/crawler_web/templates/keyword/show.html.heex:47
 #, elixir-autogen, elixir-format
 msgid "Top Ad Count: %{value}"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:84
+#: lib/crawler_web/templates/keyword/show.html.heex:86
 #, elixir-autogen, elixir-format
 msgid "Top Ad URLs"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:49
+#: lib/crawler_web/templates/keyword/show.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Total Ad Count: %{value}"
 msgstr ""
 
-#: lib/crawler_web/templates/keyword/show.html.heex:55
+#: lib/crawler_web/templates/keyword/show.html.heex:56
 #, elixir-autogen, elixir-format
 msgid "Total: %{value}"
 msgstr ""
