@@ -23,7 +23,7 @@
         <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
       </p>
     <% else %>
-      <%= render("_keyword_list.html", keywords: @keywords) %>
+      <%= render("_keyword_list.html", conn: @conn, keywords: @keywords) %>
     <% end %>
   </div>
 </div>
