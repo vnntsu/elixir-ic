@@ -1,0 +1,42 @@
+<div class="card card-body keyword-filter">
+  <%= form_for @conn, Routes.home_path(@conn, :index), [method: "get", class: "keyword-filter"], fn f -> %>
+    <div class="form-group row gy-3">
+      <div class="keyword-filter__item col-lg-4 col-6">
+        <%= label(f, :name, gettext("Keyword")) %>
+        <%= text_input(f, :keyword,
+          class: "form-control mt-3",
+          id: "keyword",
+          placeholder: gettext("Keyword")
+        ) %>
+      </div>
+
+      <div class="keyword-filter__item col-lg-4 col-6">
+        <%= label(f, :result_url, gettext("URL in result")) %>
+        <%= text_input(f, :result_url,
+          class: "form-control mt-3",
+          placeholder: gettext("e.g. google, .com")
+        ) %>
+      </div>
+
+      <div class="keyword-filter__item col-lg-2 col-6">
+        <%= label(f, :result_count, gettext("Result count")) %>
+        <div class="input-group mt-3">
+          <%= select(f, :result_condition, [">", "<", "="], class: "form-control text-center") %>
+          <%= number_input(f, :result_count_value, class: "form-control", placeholder: "0") %>
+        </div>
+      </div>
+
+      <div class="keyword-filter__item col-lg-2 col-6">
+        <%= label(f, :link_count, gettext("Link count")) %>
+        <div class="input-group mt-3">
+          <%= select(f, :link_condition, [">", "<", "="], class: "form-control text-center") %>
+          <%= number_input(f, :link_count, class: "form-control", placeholder: "0") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="keyword-filter__submit mt-3">
+      <%= submit(gettext("Submit"), class: "btn btn-success") %>
+    </div>
+  <% end %>
+</div>

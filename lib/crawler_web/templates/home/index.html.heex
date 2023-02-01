@@ -18,6 +18,12 @@
       </div>
     <% end %>
 
+    <section class="row mt-3">
+      <div class="col-12">
+        <%= render("_keyword_filter.html", conn: @conn) %>
+      </div>
+    </section>
+
     <%= if Enum.empty?(@keywords) do %>
       <p>
         <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
