@@ -50,7 +50,7 @@ defmodule Crawler.MixProject do
       {:excoveralls, "~> 0.15.0", [only: :test]},
       {:exvcr, "~> 0.13.4", [only: :test]},
       {:faker, "~> 0.17.0", [only: [:dev, :test], runtime: false]},
-      {:floki, ">= 0.30.0", only: :test},
+      {:floki, ">= 0.30.0"},
       {:gettext, "~> 0.18"},
       {:guardian, "~> 2.3.1"},
       {:httpoison, "~> 1.8"},
