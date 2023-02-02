@@ -24,8 +24,15 @@ defmodule CrawlerWeb.KeywordController do
   end
 
   def show(conn, %{"id" => keyword_id}) do
-    keyword = Keywords.get_keyword_by_id(keyword_id)
-    render(conn, "show.html", keyword: keyword)
+    case Keywords.get_keyword_by_user_id_and_id(conn.assigns.current_user.id, keyword_id) do
+      nil ->
+        conn
+        |> put_flash(:error, gettext("Keyword not found"))
+        |> redirect(to: Routes.home_path(conn, :index))
+
+      keyword ->
+        render(conn, "show.html", keyword: keyword)
+    end
   end
 
   defp process_uploaded_file(conn, changes) do

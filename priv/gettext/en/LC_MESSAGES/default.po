@@ -89,7 +89,7 @@ msgid "Keyword"
 msgstr ""
 
 #: lib/crawler_web/controllers/api/v1/keyword_controller.ex:72
-#: lib/crawler_web/controllers/keyword_controller.ex:66
+#: lib/crawler_web/controllers/keyword_controller.ex:73
 #, elixir-autogen, elixir-format
 msgid "One or more keywords are invalid! Allowed keyword length is %{min}-%{max}"
 msgstr ""
@@ -121,13 +121,13 @@ msgid "The file doesn't look like CSV"
 msgstr ""
 
 #: lib/crawler_web/controllers/api/v1/keyword_controller.ex:58
-#: lib/crawler_web/controllers/keyword_controller.ex:52
+#: lib/crawler_web/controllers/keyword_controller.ex:59
 #, elixir-autogen, elixir-format
 msgid "The file is empty"
 msgstr ""
 
 #: lib/crawler_web/controllers/api/v1/keyword_controller.ex:64
-#: lib/crawler_web/controllers/keyword_controller.ex:58
+#: lib/crawler_web/controllers/keyword_controller.ex:65
 #, elixir-autogen, elixir-format
 msgid "The file is too big, allowed size is up to %{limit} keywords"
 msgstr ""
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Uploaded file is not a valid CSV file"
 msgstr ""
 
-#: lib/crawler_web/controllers/keyword_controller.ex:38
+#: lib/crawler_web/controllers/keyword_controller.ex:45
 #, elixir-autogen, elixir-format
 msgid "%{num_keyword} keywords were uploaded!"
 msgstr ""
@@ -265,4 +265,9 @@ msgstr ""
 #: lib/crawler_web/templates/keyword/show.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Updated At: %{value}"
+msgstr ""
+
+#: lib/crawler_web/controllers/keyword_controller.ex:30
+#, elixir-autogen, elixir-format
+msgid "Keyword not found"
 msgstr ""

@@ -85,7 +85,7 @@ defmodule CrawlerWeb.KeywordControllerTest do
   end
 
   describe "GET show/2" do
-    test "given a keyword, renders details page", %{conn: conn} do
+    test "given a keyword belongs to a valid user, renders details page", %{conn: conn} do
       user = insert(:user)
 
       keyword =
@@ -134,5 +134,19 @@ defmodule CrawlerWeb.KeywordControllerTest do
       assert response =~ keyword.name
       assert response =~ gettext("Searching")
     end
+  end
+
+  test "given another user keyword, renders home page with an error", %{conn: conn} do
+    another_user = insert(:user)
+    keyword = insert(:keyword, user_id: another_user.id)
+    expected_user = insert(:user)
+
+    conn = conn |> log_in_user(expected_user) |> get(Routes.keyword_path(conn, :show, keyword))
+    assert redirected_to(conn) == Routes.home_path(conn, :index)
+
+    conn2 = get(conn, Routes.home_path(conn, :index))
+
+    assert response = html_response(conn2, 200)
+    assert response =~ gettext("Keyword not found")
   end
 end
