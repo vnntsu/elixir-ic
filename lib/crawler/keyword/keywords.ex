@@ -14,7 +14,8 @@ defmodule Crawler.Keyword.Keywords do
 
   def get_keyword_by_id(id), do: Repo.get(Keyword, id)
 
-  def get_keyword_by_user_id_and_id(user_id, id), do: Repo.get_by(Keyword, id: id, user_id: user_id)
+  def get_keyword_by_user_id_and_id!(user_id, id),
+    do: Repo.get_by!(Keyword, id: id, user_id: user_id)
 
   def create_keyword(attrs \\ %{}) do
     %Keyword{}

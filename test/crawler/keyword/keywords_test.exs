@@ -41,7 +41,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: user_id} = insert(:user)
       keyword = insert(:keyword, user_id: user_id, name: "keyword")
 
-      assert stored_keyword = Keywords.get_keyword_by_user_id_and_id(user_id, keyword.id)
+      assert stored_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert stored_keyword.id == keyword.id
       assert stored_keyword.name == "keyword"
       assert stored_keyword.user_id == user_id
@@ -53,7 +53,9 @@ defmodule Crawler.Keyword.KeywordsTest do
 
       %{id: expected_user_id} = insert(:user)
 
-      assert Keywords.get_keyword_by_user_id_and_id(expected_user_id, keyword_id) == nil
+      assert_raise(Ecto.NoResultsError, fn ->
+        Keywords.get_keyword_by_user_id_and_id!(expected_user_id, keyword_id)
+      end)
     end
   end
 
@@ -108,7 +110,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_in_progress(keyword)
-      updated_keyword = Keywords.get_keyword_by_user_id_and_id(user_id, keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :in_progress
     end
   end
@@ -119,7 +121,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_completed(keyword, %{html: "html"})
-      updated_keyword = Keywords.get_keyword_by_user_id_and_id(user_id, keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :completed
       assert updated_keyword.html == "html"
     end
@@ -131,7 +133,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_failed(keyword)
-      updated_keyword = Keywords.get_keyword_by_user_id_and_id(user_id, keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :failed
     end
   end

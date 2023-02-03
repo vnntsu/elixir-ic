@@ -21,8 +21,6 @@ defmodule CrawlerWeb.Features.Keyword.ViewKeywordDetailsPageTest do
     session
     |> log_in_user(expected_user)
     |> visit(Routes.keyword_path(CrawlerWeb.Endpoint, :show, keyword))
-    |> assert_has(Query.text(gettext("Keyword not found")))
-
-    assert current_path(session) == Routes.home_path(CrawlerWeb.Endpoint, :index)
+    |> assert_has(Query.text(gettext("Not Found")))
   end
 end

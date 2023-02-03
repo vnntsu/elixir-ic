@@ -141,12 +141,8 @@ defmodule CrawlerWeb.KeywordControllerTest do
     keyword = insert(:keyword, user_id: another_user.id)
     expected_user = insert(:user)
 
-    conn = conn |> log_in_user(expected_user) |> get(Routes.keyword_path(conn, :show, keyword))
-    assert redirected_to(conn) == Routes.home_path(conn, :index)
-
-    conn2 = get(conn, Routes.home_path(conn, :index))
-
-    assert response = html_response(conn2, 200)
-    assert response =~ gettext("Keyword not found")
+    assert_raise(Ecto.NoResultsError, fn ->
+      conn |> log_in_user(expected_user) |> get(Routes.keyword_path(conn, :show, keyword))
+    end)
   end
 end
