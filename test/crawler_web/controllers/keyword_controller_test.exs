@@ -16,7 +16,7 @@ defmodule CrawlerWeb.KeywordControllerTest do
       assert get_flash(conn, :info) ==
                gettext("%{num_keyword} keywords were uploaded!", num_keyword: 3)
 
-      keywords = Keywords.list_keywords(user.id)
+      keywords = Keywords.list_keywords_by_filter_params(user.id)
 
       assert length(keywords) == 3
 

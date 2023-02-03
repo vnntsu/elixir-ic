@@ -10,10 +10,11 @@ defmodule Crawler.Keyword.Keywords do
   alias Crawler.Repo
   alias CrawlerWorker.Keyword.CrawlerWorker
 
-  def list_keywords_by_filter_params(user_id, filter_params) do
+  def list_keywords_by_filter_params(user_id, filter_params \\ %{}) do
     compacted_params = compact_params(filter_params)
 
-    KeywordQuery.user_keywords_query(user_id)
+    user_id
+    |> KeywordQuery.user_keywords_query()
     |> filter_by_name(compacted_params)
     |> Repo.all()
   end
@@ -72,8 +73,6 @@ defmodule Crawler.Keyword.Keywords do
     |> Keyword.failed_changeset()
     |> Repo.update()
   end
-
-  defp compact_params(nil), do: nil
 
   defp compact_params(params) do
     params
