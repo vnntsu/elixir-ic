@@ -83,7 +83,7 @@ msgid "Internal server error"
 msgstr ""
 
 #: lib/crawler_web/templates/home/_keyword_filter.html.heex:5
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:9
+#: lib/crawler_web/templates/home/_keyword_filter.html.heex:11
 #: lib/crawler_web/templates/home/_keyword_list.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Keyword"
@@ -133,7 +133,7 @@ msgstr ""
 msgid "The file is too big, allowed size is up to %{limit} keywords"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:29
+#: lib/crawler_web/templates/home/index.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "You don't have keywords yet, please upload a CSV file."
 msgstr ""
@@ -268,27 +268,7 @@ msgstr ""
 msgid "Updated At: %{value}"
 msgstr ""
 
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:30
-#, elixir-autogen, elixir-format
-msgid "Link count"
-msgstr ""
-
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:22
-#, elixir-autogen, elixir-format
-msgid "Result count"
-msgstr ""
-
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:39
+#: lib/crawler_web/templates/home/_keyword_filter.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Submit"
-msgstr ""
-
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:14
-#, elixir-autogen, elixir-format
-msgid "URL in result"
-msgstr ""
-
-#: lib/crawler_web/templates/home/_keyword_filter.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "e.g. google, .com"
 msgstr ""

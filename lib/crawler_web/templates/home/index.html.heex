@@ -13,16 +13,14 @@
       <div class="col-3">
         <%= file_input(f, :file, class: "form-control", required: true, accept: 'text/csv') %>
       </div>
-      <div class="col-3">
+      <div class="col">
         <%= submit(gettext("Upload"), class: "btn btn-primary mb-3") %>
       </div>
     <% end %>
 
-    <section class="row mt-3">
-      <div class="col-12">
-        <%= render("_keyword_filter.html", conn: @conn) %>
-      </div>
-    </section>
+    <div class="col-12">
+      <%= render("_keyword_filter.html", conn: @conn) %>
+    </div>
 
     <%= if Enum.empty?(@keywords) do %>
       <p>
