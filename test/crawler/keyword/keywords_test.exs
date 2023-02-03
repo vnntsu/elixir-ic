@@ -47,7 +47,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       assert stored_keyword.user_id == user_id
     end
 
-    test "given a keyword belongs to another user, returns nil" do
+    test "given a keyword belongs to another user, raises Ecto.NoResultsError" do
       %{id: user_id} = insert(:user)
       %{id: keyword_id} = insert(:keyword, user_id: user_id, name: "keyword")
 
