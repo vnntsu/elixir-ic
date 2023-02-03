@@ -136,7 +136,7 @@ defmodule CrawlerWeb.KeywordControllerTest do
     end
   end
 
-  test "given another user keyword, renders home page with an error", %{conn: conn} do
+  test "given another user keyword, raises Ecto.NoResultsError exception", %{conn: conn} do
     another_user = insert(:user)
     keyword = insert(:keyword, user_id: another_user.id)
     expected_user = insert(:user)

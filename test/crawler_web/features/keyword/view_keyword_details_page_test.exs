@@ -11,7 +11,7 @@ defmodule CrawlerWeb.Features.Keyword.ViewKeywordDetailsPageTest do
     |> assert_has(Query.text(gettext("buy phone")))
   end
 
-  feature "redirects to home page with error message if keyword is not found", %{
+  feature "render 404 page if keyword is not found", %{
     session: session
   } do
     user = insert(:user)
