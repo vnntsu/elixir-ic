@@ -33,6 +33,35 @@ defmodule Crawler.Keyword.KeywordsTest do
 
       assert stored_keyword_name == "phone"
     end
+
+    test "given a part of valid keyword, returns user's keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+      insert(:keyword, user_id: expected_user_id, name: "tv")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => "hon"
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given an invalid keyword, returns empty keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+      insert(:keyword, user_id: expected_user_id, name: "tv")
+
+      assert Keywords.list_keywords_by_filter_params(expected_user_id, %{
+               "keyword" => "something"
+             }) == []
+    end
   end
 
   describe "get_keyword_by_id/1" do
