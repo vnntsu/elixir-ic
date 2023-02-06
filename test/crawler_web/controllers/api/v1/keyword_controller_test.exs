@@ -3,7 +3,103 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
 
   alias Crawler.Keyword.Keywords
 
-  describe "POST /keyword/upload" do
+  describe "GET keyword/1" do
+    test "given a valid user, returns uploaded keywords", %{conn: conn} do
+      user = insert(:user)
+      insert(:keyword, name: "watch", user_id: user.id)
+
+      expected_user = insert(:user)
+      insert(:keyword, name: "phone", user_id: expected_user.id)
+      insert(:keyword, name: "tv", user_id: expected_user.id)
+
+      conn =
+        conn
+        |> auth_with_user(expected_user)
+        |> get(Routes.api_v1_keyword_path(conn, :index))
+
+      assert %{
+               "data" => [
+                 %{
+                   "attributes" => %{"name" => "phone", "status" => "new"},
+                   "id" => _,
+                   "relationships" => %{},
+                   "type" => "keywords"
+                 },
+                 %{
+                   "attributes" => %{"name" => "tv", "status" => "new"},
+                   "id" => _,
+                   "relationships" => %{},
+                   "type" => "keywords"
+                 }
+               ],
+               "included" => []
+             } = json_response(conn, 200)
+    end
+  end
+
+  describe "GET keyword/2" do
+    test "given a valid user and valid filtered keyword, returns filtered keywords", %{
+      conn: conn
+    } do
+      user = insert(:user)
+      insert(:keyword, name: "watch", user_id: user.id)
+
+      expected_user = insert(:user)
+      insert(:keyword, name: "phone", user_id: expected_user.id)
+      insert(:keyword, name: "tv", user_id: expected_user.id)
+
+      conn =
+        conn
+        |> auth_with_user(expected_user)
+        |> get(Routes.api_v1_keyword_path(conn, :index, %{keyword: "hon"}))
+
+      assert %{
+               "data" => [
+                 %{
+                   "attributes" => %{"name" => "phone", "status" => "new"},
+                   "id" => _,
+                   "relationships" => %{},
+                   "type" => "keywords"
+                 }
+               ],
+               "included" => []
+             } = json_response(conn, 200)
+    end
+
+    test "given a valid user and empty filtered keyword, returns uploaded keywords", %{conn: conn} do
+      user = insert(:user)
+      insert(:keyword, name: "watch", user_id: user.id)
+
+      expected_user = insert(:user)
+      insert(:keyword, name: "phone", user_id: expected_user.id)
+      insert(:keyword, name: "tv", user_id: expected_user.id)
+
+      conn =
+        conn
+        |> auth_with_user(expected_user)
+        |> get(Routes.api_v1_keyword_path(conn, :index, %{keyword: ""}))
+
+      assert %{
+               "data" => [
+                 %{
+                   "attributes" => %{"name" => "phone", "status" => "new"},
+                   "id" => _,
+                   "relationships" => %{},
+                   "type" => "keywords"
+                 },
+                 %{
+                   "attributes" => %{"name" => "tv", "status" => "new"},
+                   "id" => _,
+                   "relationships" => %{},
+                   "type" => "keywords"
+                 }
+               ],
+               "included" => []
+             } = json_response(conn, 200)
+    end
+  end
+
+  describe "POST keyword/1" do
     test "given valid keyword csv file, creates keywords and returns 200", %{conn: conn} do
       user = insert(:user)
       uploaded_file = keyword_file_fixture("valid.csv")
