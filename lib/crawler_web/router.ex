@@ -57,6 +57,7 @@ defmodule CrawlerWeb.Router do
 
     scope "/v1", Api.V1, as: :v1 do
       post("/log_in", UserSessionController, :create)
+      post("/register", UserRegistrationController, :create)
     end
   end
 
