@@ -47,7 +47,7 @@ defmodule CrawlerWeb.Router do
     pipe_through([:browser, :require_authenticated_user])
 
     get("/home", HomeController, :index)
-    post("/keyword", KeywordController, :create)
+    resources("/keyword", KeywordController, only: [:create, :show])
   end
 
   ## api

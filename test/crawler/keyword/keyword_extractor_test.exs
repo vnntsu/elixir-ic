@@ -13,10 +13,10 @@ defmodule Crawler.Keyword.KeywordExtractorTest do
 
         assert attrs.ad_top_count == 11
         assert attrs.ad_total == 9
-        assert attrs.non_ad_count == 89
-        assert attrs.total == 176
+        assert attrs.non_ad_count == 36
+        assert attrs.total == 51
         assert length(attrs.urls_ad_top) == 11
-        assert length(attrs.urls_non_ad) == 89
+        assert length(attrs.urls_non_ad) == 36
       end
     end
 

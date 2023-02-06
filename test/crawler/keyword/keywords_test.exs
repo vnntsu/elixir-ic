@@ -17,6 +17,48 @@ defmodule Crawler.Keyword.KeywordsTest do
     end
   end
 
+  describe "get_keyword_by_id/1" do
+    test "given a valid keyword id, returns stored keyword" do
+      %{id: user_id} = insert(:user)
+      keyword = insert(:keyword, user_id: user_id, name: "keyword")
+
+      assert stored_keyword = Keywords.get_keyword_by_id(keyword.id)
+      assert stored_keyword.id == keyword.id
+      assert stored_keyword.name == "keyword"
+      assert stored_keyword.user_id == user_id
+    end
+
+    test "given an invalid keyword id, returns nil" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      assert Keywords.get_keyword_by_id(-1) == nil
+    end
+  end
+
+  describe "get_keyword_by_user_id_and_id/2" do
+    test "given a valid keyword id, returns stored keyword" do
+      %{id: user_id} = insert(:user)
+      keyword = insert(:keyword, user_id: user_id, name: "keyword")
+
+      assert stored_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
+      assert stored_keyword.id == keyword.id
+      assert stored_keyword.name == "keyword"
+      assert stored_keyword.user_id == user_id
+    end
+
+    test "given a keyword belongs to another user, raises Ecto.NoResultsError" do
+      %{id: user_id} = insert(:user)
+      %{id: keyword_id} = insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+
+      assert_raise(Ecto.NoResultsError, fn ->
+        Keywords.get_keyword_by_user_id_and_id!(expected_user_id, keyword_id)
+      end)
+    end
+  end
+
   describe "create_keyword/1" do
     test "given a valid keyword data, creates a keyword" do
       %{id: user_id} = insert(:user)
@@ -68,7 +110,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_in_progress(keyword)
-      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :in_progress
     end
   end
@@ -79,7 +121,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_completed(keyword, %{html: "html"})
-      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :completed
       assert updated_keyword.html == "html"
     end
@@ -91,7 +133,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       keyword = insert(:keyword, user_id: user_id)
 
       Keywords.mark_as_failed(keyword)
-      updated_keyword = Keywords.get_keyword_by_id(keyword.id)
+      updated_keyword = Keywords.get_keyword_by_user_id_and_id!(user_id, keyword.id)
       assert updated_keyword.status == :failed
     end
   end

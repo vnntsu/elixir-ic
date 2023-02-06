@@ -63,12 +63,19 @@ defmodule Crawler.Keyword.KeywordExtractor do
   defp total(document) do
     document
     |> Floki.find(@selectors.total)
+    |> get_urls()
     |> Enum.count()
   end
 
   defp get_urls(document) do
+    valid_url = fn url ->
+      uri = URI.parse(url)
+      uri.scheme != nil && uri.host =~ "."
+    end
+
     document
     |> Floki.attribute("a", "href")
+    |> Enum.filter(valid_url)
     |> Enum.uniq()
   end
 end
