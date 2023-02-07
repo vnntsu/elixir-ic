@@ -5,6 +5,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   alias Crawler.Keyword.Keywords
   alias Crawler.Keyword.Schemas.{Keyword, KeywordCSVFile}
   alias CrawlerWeb.Api.ErrorView
+  alias CrawlerWeb.Api.V1.KeywordDetailView
   alias CrawlerWeb.Api.V1.KeywordListView
 
   def index(conn, params) do
@@ -13,6 +14,22 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
     conn
     |> put_view(KeywordListView)
     |> render("show.json", %{data: keywords})
+  end
+
+  def show(conn, %{"id" => keyword_id}) do
+    case Keywords.get_keyword_by_user_id_and_id(conn.assigns.current_user.id, keyword_id) do
+      nil ->
+        render_error_message(
+          conn,
+          :not_found,
+          gettext("Keyword was not found")
+        )
+
+      keyword ->
+        conn
+        |> put_view(KeywordDetailView)
+        |> render("show.json", %{data: keyword})
+    end
   end
 
   def create(conn, %{"keyword_csv_file" => params}) do
@@ -34,13 +51,10 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   end
 
   def create(conn, _params) do
-    conn
-    |> put_status(:unprocessable_entity)
-    |> put_view(ErrorView)
-    |> render("error.json", %{
-      code: :unprocessable_entity,
-      detail: gettext("Missing csv file, please add keyword_csv_file to the request's body")
-    })
+    render_error_message(
+      conn,
+      gettext("Missing csv file, please add keyword_csv_file to the request's body")
+    )
   end
 
   defp parse_uploaded_file(conn, changes) do
@@ -86,10 +100,10 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
     end
   end
 
-  defp render_error_message(conn, message) do
+  defp render_error_message(conn, status \\ :unprocessable_entity, message) do
     conn
     |> put_view(ErrorView)
-    |> put_status(:unprocessable_entity)
-    |> render("error.json", %{code: :unprocessable_entity, detail: message})
+    |> put_status(status)
+    |> render("error.json", %{code: status, detail: message})
   end
 end
