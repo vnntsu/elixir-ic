@@ -3,7 +3,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
 
   alias Crawler.Keyword.Keywords
 
-  describe "GET keyword/1" do
+  describe "GET index/2" do
     test "given a valid user, returns uploaded keywords", %{conn: conn} do
       user = insert(:user)
       insert(:keyword, name: "watch", user_id: user.id)
@@ -35,9 +35,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
                "included" => []
              } = json_response(conn, 200)
     end
-  end
 
-  describe "GET keyword/2" do
     test "given a valid user and valid filtered keyword, returns filtered keywords", %{
       conn: conn
     } do
@@ -99,7 +97,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
     end
   end
 
-  describe "POST keyword/1" do
+  describe "POST create/2" do
     test "given valid keyword csv file, creates keywords and returns 200", %{conn: conn} do
       user = insert(:user)
       uploaded_file = keyword_file_fixture("valid.csv")
