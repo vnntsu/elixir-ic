@@ -5,8 +5,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   alias Crawler.Keyword.Keywords
   alias Crawler.Keyword.Schemas.{Keyword, KeywordCSVFile}
   alias CrawlerWeb.Api.ErrorView
-  alias CrawlerWeb.Api.V1.KeywordDetailView
-  alias CrawlerWeb.Api.V1.KeywordListView
+  alias CrawlerWeb.Api.V1.{KeywordDetailView, KeywordListView}
 
   def index(conn, params) do
     keywords = Keywords.list_user_keywords_by_filter_params(conn.assigns.current_user.id, params)
