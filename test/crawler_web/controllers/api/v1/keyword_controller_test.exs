@@ -28,7 +28,7 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
                "included" => []
              } = json_response(conn, 200)
 
-      keywords = Keywords.list_keywords_by_filter_params(user.id)
+      keywords = Keywords.list_user_keywords_by_filter_params(user.id)
 
       list =
         Enum.map(keywords, fn keyword ->

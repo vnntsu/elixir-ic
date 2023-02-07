@@ -10,7 +10,7 @@ defmodule Crawler.Keyword.Keywords do
   alias Crawler.Repo
   alias CrawlerWorker.Keyword.CrawlerWorker
 
-  def list_keywords_by_filter_params(user_id, filter_params \\ %{}) do
+  def list_user_keywords_by_filter_params(user_id, filter_params \\ %{}) do
     compacted_params = compact_params(filter_params)
 
     user_id
