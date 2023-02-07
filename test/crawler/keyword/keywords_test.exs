@@ -62,6 +62,21 @@ defmodule Crawler.Keyword.KeywordsTest do
                "keyword" => "something"
              }) == []
     end
+
+    test "given a nil keyword, returns keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => nil
+               })
+
+      assert stored_keyword_name == "phone"
+    end
   end
 
   describe "get_keyword_by_id/1" do

@@ -76,7 +76,7 @@ defmodule Crawler.Keyword.Keywords do
 
   defp compact_params(params) do
     params
-    |> Enum.filter(fn {_key, value} -> value !== "" end)
+    |> Enum.filter(fn {_key, value} -> value !== "" and not is_nil(value) end)
     |> Enum.into(%{})
   end
 
