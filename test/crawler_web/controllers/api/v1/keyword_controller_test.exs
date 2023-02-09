@@ -100,10 +100,8 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
              } = json_response(conn, 200)
     end
 
-    test "given a unauthenticated user, returns login page", %{conn: conn} do
-      conn =
-        conn
-        |> get(Routes.api_v1_keyword_path(conn, :index))
+    test "given a unauthenticated user, returns unauthorized error", %{conn: conn} do
+      conn = get(conn, Routes.api_v1_keyword_path(conn, :index))
 
       assert %{
                "errors" => [
