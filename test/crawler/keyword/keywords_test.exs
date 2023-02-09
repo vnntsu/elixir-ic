@@ -79,9 +79,9 @@ defmodule Crawler.Keyword.KeywordsTest do
       assert stored_keyword_name == "phone"
     end
 
-    test "given another filter that is not `keyword`, returns keyword list" do
+    test "given another filter that is not `keyword`, returns keyword list without filter" do
       %{id: user_id} = insert(:user)
-      insert(:keyword, user_id: user_id, name: "keyword")
+      insert(:keyword, user_id: user_id, name: "phone")
 
       %{id: expected_user_id} = insert(:user)
       insert(:keyword, user_id: expected_user_id, name: "phone")

@@ -9,7 +9,7 @@ defmodule CrawlerWeb.Features.HomePage.ViewKeywordListTest do
     session
     |> log_in_user(user)
     |> visit(Routes.home_path(CrawlerWeb.Endpoint, :index))
-    |> assert_has(Query.text(gettext("buy phone")))
-    |> assert_has(Query.text(gettext("buy tv")))
+    |> assert_has(Query.text("buy phone"))
+    |> assert_has(Query.text("buy tv"))
   end
 end

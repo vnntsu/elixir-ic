@@ -134,7 +134,7 @@ msgstr ""
 msgid "The file is too big, allowed size is up to %{limit} keywords"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:27
+#: lib/crawler_web/templates/home/index.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "You don't have keywords yet, please upload a CSV file."
 msgstr ""
@@ -272,4 +272,9 @@ msgstr ""
 #: lib/crawler_web/templates/home/_keyword_filter.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Submit"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "No keywords found, try with another keyword"
 msgstr ""
