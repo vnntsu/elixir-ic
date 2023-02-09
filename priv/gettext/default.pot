@@ -72,13 +72,13 @@ msgstr ""
 msgid "Invalid email or password"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:30
+#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:39
 #: lib/crawler_web/controllers/api/v1/user_session_controller.ex:38
 #, elixir-autogen, elixir-format
 msgid "Email or password is missing"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:47
+#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:56
 #: lib/crawler_web/controllers/api/v1/user_session_controller.ex:27
 #, elixir-autogen, elixir-format
 msgid "Internal server error"
@@ -278,9 +278,4 @@ msgstr ""
 #: lib/crawler_web/templates/home/index.html.heex:32
 #, elixir-autogen, elixir-format
 msgid "No keywords found, try with another keyword"
-msgstr ""
-
-#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:19
-#, elixir-autogen, elixir-format
-msgid "%{email} has already been taken"
 msgstr ""

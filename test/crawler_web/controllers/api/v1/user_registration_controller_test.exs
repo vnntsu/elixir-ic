@@ -40,7 +40,7 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
              }
     end
 
-    test "given existing user credentials, returns error response", %{conn: conn} do
+    test "given existing user email, returns error response", %{conn: conn} do
       %{email: email, password: password} = insert(:user)
 
       conn =
@@ -53,10 +53,57 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
                "errors" => [
                  %{
                    "code" => "unprocessable_entity",
-                   "detail" => gettext("%{email} has already been taken", email: email)
+                   "detail" => gettext("Email has already been taken"),
+                   "source" => %{"parameter" => "email"}
                  }
                ]
              }
+    end
+
+    test "given an invalid user with password is less than 8 characters, returns error response", %{
+      conn: conn
+    } do
+      conn =
+        post(conn, Routes.api_v1_user_registration_path(conn, :create), %{
+          email: "email@gmail.com",
+          password: "123456"
+        })
+
+      assert json_response(conn, 422) == %{
+               "errors" => [
+                 %{
+                   "code" => "unprocessable_entity",
+                   "detail" => gettext("Password should be at least 8 character(s)"),
+                   "source" => %{"parameter" => "password"}
+                 }
+               ]
+             }
+    end
+
+    test "given an invalid user credentials with multiple errors, returns error response", %{
+      conn: conn
+    } do
+      %{email: email} = insert(:user)
+
+      conn =
+        post(conn, Routes.api_v1_user_registration_path(conn, :create), %{
+          email: email,
+          password: "123456"
+        })
+
+      assert errors = json_response(conn, 422)
+
+      assert %{
+               "code" => "unprocessable_entity",
+               "detail" => gettext("Password should be at least 8 character(s)"),
+               "source" => %{"parameter" => "password"}
+             } in errors["errors"] == true
+
+      assert %{
+               "code" => "unprocessable_entity",
+               "detail" => gettext("Email has already been taken"),
+               "source" => %{"parameter" => "email"}
+             } in errors["errors"] == true
     end
 
     test "given valid user credentials when encode_and_sign returns error, returns error response",
