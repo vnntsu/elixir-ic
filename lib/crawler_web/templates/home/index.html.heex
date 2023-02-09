@@ -23,9 +23,15 @@
     </div>
 
     <%= if Enum.empty?(@keywords) do %>
-      <p>
-        <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
-      </p>
+      <%= if is_nil(@params["keyword"]) or @params["keyword"] == "" do %>
+        <p>
+          <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
+        </p>
+      <% else %>
+        <p>
+          <%= gettext("No keywords found, try with another keyword") %>
+        </p>
+      <% end %>
     <% else %>
       <%= render("_keyword_list.html", conn: @conn, keywords: @keywords) %>
     <% end %>

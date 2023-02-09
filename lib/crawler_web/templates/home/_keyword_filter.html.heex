@@ -1,5 +1,5 @@
 <div class="card card-body keyword-filter">
-  <%= form_for @conn, Routes.home_path(@conn, :index), [method: "get" , class: "keyword-filter" ], fn f -> %>
+  <%= form_for @conn, Routes.home_path(@conn, :index), [method: "get" , class: "keyword-filter"], fn f -> %>
     <div class="form-group row gy-3">
       <div class="keyword-filter__item col-2 d-flex align-items-center">
         <%= label(f, :name, gettext("Keyword")) %>
