@@ -8,7 +8,7 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   alias CrawlerWeb.Api.V1.KeywordListView
 
   def index(conn, params) do
-    keywords = Keywords.list_keywords_by_filter_params(conn.assigns.current_user.id, params)
+    keywords = Keywords.list_user_keywords_by_filter_params(conn.assigns.current_user.id, params)
 
     conn
     |> put_view(KeywordListView)

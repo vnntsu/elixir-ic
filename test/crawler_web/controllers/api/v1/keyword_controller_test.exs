@@ -7,6 +7,8 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
     test "given a valid user, returns uploaded keywords", %{conn: conn} do
       user = insert(:user)
       insert(:keyword, name: "watch", user_id: user.id)
+      insert(:keyword, name: "phone", user_id: user.id)
+      insert(:keyword, name: "tv", user_id: user.id)
 
       expected_user = insert(:user)
       insert(:keyword, name: "phone", user_id: expected_user.id)
@@ -41,6 +43,8 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
     } do
       user = insert(:user)
       insert(:keyword, name: "watch", user_id: user.id)
+      insert(:keyword, name: "phone", user_id: user.id)
+      insert(:keyword, name: "tv", user_id: user.id)
 
       expected_user = insert(:user)
       insert(:keyword, name: "phone", user_id: expected_user.id)
@@ -94,6 +98,21 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
                ],
                "included" => []
              } = json_response(conn, 200)
+    end
+
+    test "given a unauthenticated user, returns login page", %{conn: conn} do
+      conn =
+        conn
+        |> get(Routes.api_v1_keyword_path(conn, :index))
+
+      assert %{
+               "errors" => [
+                 %{
+                   "code" => "unauthorized",
+                   "detail" => "Unauthorized"
+                 }
+               ]
+             } = json_response(conn, 401)
     end
   end
 
