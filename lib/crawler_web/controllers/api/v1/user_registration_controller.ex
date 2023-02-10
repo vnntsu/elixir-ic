@@ -11,20 +11,11 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationController do
         process_user_encode_and_sign(conn, user)
 
       {:error, changeset} ->
-        # Enum.each(changeset.errors, fn error ->
-        #   case error do
-        #     {:email, reason} -> IO.inspect(reason)
-        #     {:password, reason} -> IO.inspect(reason)
-        #   end
-
-        #   # IO.inspect(error)
-        # end)
-
         conn
         |> put_view(ErrorView)
-        |> put_status(:unprocessable_entity)
+        |> put_status(:bad_request)
         |> render("error.json", %{
-          code: :unprocessable_entity,
+          code: :bad_request,
           changeset: changeset
         })
     end

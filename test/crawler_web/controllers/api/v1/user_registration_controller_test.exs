@@ -49,10 +49,10 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
           password: password
         })
 
-      assert json_response(conn, 422) == %{
+      assert json_response(conn, 400) == %{
                "errors" => [
                  %{
-                   "code" => "unprocessable_entity",
+                   "code" => "bad_request",
                    "detail" => gettext("Email has already been taken"),
                    "source" => %{"parameter" => "email"}
                  }
@@ -69,10 +69,10 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
           password: "123456"
         })
 
-      assert json_response(conn, 422) == %{
+      assert json_response(conn, 400) == %{
                "errors" => [
                  %{
-                   "code" => "unprocessable_entity",
+                   "code" => "bad_request",
                    "detail" => gettext("Password should be at least 8 character(s)"),
                    "source" => %{"parameter" => "password"}
                  }
@@ -91,16 +91,16 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
           password: "123456"
         })
 
-      assert errors = json_response(conn, 422)
+      assert errors = json_response(conn, 400)
 
       assert %{
-               "code" => "unprocessable_entity",
+               "code" => "bad_request",
                "detail" => gettext("Password should be at least 8 character(s)"),
                "source" => %{"parameter" => "password"}
              } in errors["errors"] == true
 
       assert %{
-               "code" => "unprocessable_entity",
+               "code" => "bad_request",
                "detail" => gettext("Email has already been taken"),
                "source" => %{"parameter" => "email"}
              } in errors["errors"] == true
