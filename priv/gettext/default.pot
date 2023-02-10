@@ -72,23 +72,27 @@ msgstr ""
 msgid "Invalid email or password"
 msgstr ""
 
+#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:30
 #: lib/crawler_web/controllers/api/v1/user_session_controller.ex:38
 #, elixir-autogen, elixir-format
 msgid "Email or password is missing"
 msgstr ""
 
+#: lib/crawler_web/controllers/api/v1/user_registration_controller.ex:47
 #: lib/crawler_web/controllers/api/v1/user_session_controller.ex:27
 #, elixir-autogen, elixir-format
 msgid "Internal server error"
 msgstr ""
 
+#: lib/crawler_web/templates/home/_keyword_filter.html.heex:5
+#: lib/crawler_web/templates/home/_keyword_filter.html.heex:11
 #: lib/crawler_web/templates/home/_keyword_list.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Keyword"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:72
-#: lib/crawler_web/controllers/keyword_controller.ex:61
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:94
+#: lib/crawler_web/controllers/keyword_controller.ex:66
 #, elixir-autogen, elixir-format
 msgid "One or more keywords are invalid! Allowed keyword length is %{min}-%{max}"
 msgstr ""
@@ -113,25 +117,25 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:22
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:47
 #: lib/crawler_web/controllers/keyword_controller.ex:21
 #, elixir-autogen, elixir-format
 msgid "The file doesn't look like CSV"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:58
-#: lib/crawler_web/controllers/keyword_controller.ex:47
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:80
+#: lib/crawler_web/controllers/keyword_controller.ex:52
 #, elixir-autogen, elixir-format
 msgid "The file is empty"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:64
-#: lib/crawler_web/controllers/keyword_controller.ex:53
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:86
+#: lib/crawler_web/controllers/keyword_controller.ex:58
 #, elixir-autogen, elixir-format
 msgid "The file is too big, allowed size is up to %{limit} keywords"
 msgstr ""
 
-#: lib/crawler_web/templates/home/index.html.heex:23
+#: lib/crawler_web/templates/home/index.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "You don't have keywords yet, please upload a CSV file."
 msgstr ""
@@ -141,17 +145,17 @@ msgstr ""
 msgid "Uploaded file is not a valid CSV file"
 msgstr ""
 
-#: lib/crawler_web/controllers/keyword_controller.ex:33
+#: lib/crawler_web/controllers/keyword_controller.ex:38
 #, elixir-autogen, elixir-format
 msgid "%{num_keyword} keywords were uploaded!"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:44
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:66
 #, elixir-autogen, elixir-format
 msgid "Keywords were uploaded!"
 msgstr ""
 
-#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:33
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:55
 #, elixir-autogen, elixir-format
 msgid "Missing csv file, please add keyword_csv_file to the request's body"
 msgstr ""
@@ -161,27 +165,122 @@ msgstr ""
 msgid "Unauthorized"
 msgstr ""
 
-#: lib/crawler_web/views/home_view.ex:19
+#: lib/crawler_web/views/view_helpers.ex:9
 #, elixir-autogen, elixir-format
 msgid "Completed"
 msgstr ""
 
-#: lib/crawler_web/views/home_view.ex:17
+#: lib/crawler_web/views/view_helpers.ex:7
 #, elixir-autogen, elixir-format
 msgid "Crawling"
 msgstr ""
 
-#: lib/crawler_web/views/home_view.ex:18
+#: lib/crawler_web/views/view_helpers.ex:8
 #, elixir-autogen, elixir-format
 msgid "Failed"
 msgstr ""
 
-#: lib/crawler_web/views/home_view.ex:16
+#: lib/crawler_web/views/view_helpers.ex:6
 #, elixir-autogen, elixir-format
 msgid "New"
 msgstr ""
 
-#: lib/crawler_web/views/home_view.ex:20
+#: lib/crawler_web/views/view_helpers.ex:10
 #, elixir-autogen, elixir-format
 msgid "Undefined"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Created At: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "ID: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Keyword Info"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "Non-Ad Count: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:95
+#, elixir-autogen, elixir-format
+msgid "Non-Ad URLs"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Result Report"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:77
+#, elixir-autogen, elixir-format
+msgid "Search Result HTML"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:67
+#, elixir-autogen, elixir-format
+msgid "Searching"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Status: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:142
+#, elixir-autogen, elixir-format
+msgid "There are no Non-Ad URLs"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:117
+#, elixir-autogen, elixir-format
+msgid "There are no Top-Ad URLs"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:47
+#, elixir-autogen, elixir-format
+msgid "Top Ad Count: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:86
+#, elixir-autogen, elixir-format
+msgid "Top Ad URLs"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:50
+#, elixir-autogen, elixir-format
+msgid "Total Ad Count: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Total: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/keyword/show.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Updated At: %{value}"
+msgstr ""
+
+#: lib/crawler_web/templates/home/_keyword_filter.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Submit"
+msgstr ""
+
+#: lib/crawler_web/templates/home/index.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "No keywords found, try with another keyword"
+msgstr ""
+
+#: lib/crawler_web/controllers/api/v1/keyword_controller.ex:24
+#, elixir-autogen, elixir-format
+msgid "Keyword was not found"
 msgstr ""

@@ -1,0 +1,19 @@
+<div class="card card-body keyword-filter">
+  <%= form_for @conn, Routes.home_path(@conn, :index), [method: "get" , class: "keyword-filter"], fn f -> %>
+    <div class="form-group row gy-3">
+      <div class="keyword-filter__item col-2 d-flex align-items-center">
+        <%= label(f, :name, gettext("Keyword")) %>
+      </div>
+      <div class="keyword-filter__item col align-middle">
+        <%= text_input(f, :keyword,
+          class: "form-control",
+          id: "keyword",
+          placeholder: gettext("Keyword")
+        ) %>
+      </div>
+      <div class="keyword-filter__submit col-2 align-middle">
+        <%= submit(gettext("Submit"), class: "btn btn-success") %>
+      </div>
+    </div>
+  <% end %>
+</div>

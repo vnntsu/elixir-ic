@@ -1,0 +1,150 @@
+<div class="row">
+  <div class="col">
+    <h1>
+      <%= @keyword.name %>
+    </h1>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-4">
+    <div class="keyword-card card">
+      <div class="keyword-card__header card-header">
+        <i class="keyword-card__icon keyword-card__icon--info fas fa-info-circle"></i>
+        <strong>
+          <%= gettext("Keyword Info") %>
+        </strong>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <%= gettext("ID: %{value}", value: @keyword.id) %>
+        </li>
+        <li class="list-group-item">
+          <span class={get_column_status(@keyword.status)}>
+            <%= gettext("Status: %{value}", value: get_status(@keyword.status)) %>
+          </span>
+        </li>
+        <li class="list-group-item">
+          <%= gettext("Created At: %{value}", value: @keyword.inserted_at) %>
+        </li>
+        <li class="list-group-item">
+          <%= gettext("Updated At: %{value}", value: @keyword.updated_at) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <%= if @keyword.html do %>
+    <div class="col-4">
+      <div class="keyword-card card">
+        <div class="keyword-card__header card-header">
+          <i class="keyword-card__icon keyword-card__icon--report fas fa-file-alt"></i>
+          <strong>
+            <%= gettext("Result Report") %>
+          </strong>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <%= gettext("Top Ad Count: %{value}", value: @keyword.ad_top_count) %>
+          </li>
+          <li class="list-group-item">
+            <%= gettext("Total Ad Count: %{value}", value: @keyword.ad_total) %>
+          </li>
+          <li class="list-group-item">
+            <%= gettext("Non-Ad Count: %{value}", value: @keyword.non_ad_count) %>
+          </li>
+          <li class="list-group-item">
+            <%= gettext("Total: %{value}", value: @keyword.total) %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="row mt-3">
+    <div class="col">
+      <p>
+        <%= if is_nil(@keyword.html) do %>
+          <button class="btn btn-secondary" role="button">
+            <%= gettext("Searching") %>
+          </button>
+        <% else %>
+          <a
+            class="btn btn-primary"
+            data-bs-toggle="collapse"
+            href="#searchResult"
+            role="button"
+            aria-expanded="false"
+          >
+            <%= gettext("Search Result HTML") %>
+          </a>
+          <a
+            class="btn btn-primary"
+            data-bs-toggle="collapse"
+            href="#topAdUrls"
+            role="button"
+            aria-expanded="false"
+          >
+            <%= gettext("Top Ad URLs") %>
+          </a>
+          <a
+            class="btn btn-primary"
+            data-bs-toggle="collapse"
+            href="#totalUrls"
+            role="button"
+            aria-expanded="false"
+          >
+            <%= gettext("Non-Ad URLs") %>
+          </a>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%= if @keyword.html do %>
+  <div class="row" id="parentResult">
+    <div class="col">
+      <div class="collapse" id="searchResult" data-bs-parent="#parentResult">
+        <div class="card card-body">
+          <iframe srcdoc={@keyword.html} style="height: 600px"></iframe>
+        </div>
+      </div>
+
+      <div class="collapse" id="topAdUrls" data-bs-parent="#parentResult">
+        <div class="card card-body">
+          <ul class="list-group list-group-flush">
+            <%= if is_nil(@keyword.ad_top_count) do %>
+              <li class="list-group-item text-danger">
+                <%= gettext("There are no Top-Ad URLs") %>
+              </li>
+            <% else %>
+              <%= for url <- @keyword.urls_ad_top do %>
+                <li class="list-group-item">
+                  <a href={url}><%= url %></a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="collapse" id="totalUrls" data-bs-parent="#parentResult">
+        <div class="card card-body">
+          <ul class="list-group list-group-flush">
+            <%= case @keyword.non_ad_count do %>
+              <% count when count > 0 -> %>
+                <%= for url <- @keyword.urls_non_ad do %>
+                  <li class="list-group-item">
+                    <a href={url}><%= url %></a>
+                  </li>
+                <% end %>
+              <% _ -> %>
+                <li class="list-group-item text-danger">
+                  <%= gettext("There are no Non-Ad URLs") %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

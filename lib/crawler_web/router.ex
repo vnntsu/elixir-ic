@@ -47,7 +47,7 @@ defmodule CrawlerWeb.Router do
     pipe_through([:browser, :require_authenticated_user])
 
     get("/home", HomeController, :index)
-    post("/keyword", KeywordController, :create)
+    resources("/keyword", KeywordController, only: [:create, :show])
   end
 
   ## api
@@ -57,6 +57,7 @@ defmodule CrawlerWeb.Router do
 
     scope "/v1", Api.V1, as: :v1 do
       post("/log_in", UserSessionController, :create)
+      post("/register", UserRegistrationController, :create)
     end
   end
 
@@ -64,7 +65,7 @@ defmodule CrawlerWeb.Router do
     pipe_through [:api, :api_auth]
 
     scope "/v1", Api.V1, as: :v1 do
-      post("/keyword", KeywordController, :create)
+      resources("/keyword", KeywordController, only: [:index, :create, :show])
     end
   end
 end

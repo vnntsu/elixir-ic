@@ -4,8 +4,9 @@ Code.put_compiler_option(:warnings_as_errors, true)
 
 {:ok, _} = Application.ensure_all_started(:ex_machina)
 
-Mimic.copy(Ecto.Adapters.SQL)
 Mimic.copy(Crawler.Account.Guardian)
+Mimic.copy(Ecto.Adapters.SQL)
+Mimic.copy(Floki)
 Mimic.copy(HTTPoison)
 
 {:ok, _} = Application.ensure_all_started(:wallaby)

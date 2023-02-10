@@ -12,6 +12,12 @@ defmodule Crawler.Keyword.Schemas.Keyword do
     field :name, :string
     field :status, Ecto.Enum, values: [:new, :in_progress, :completed, :failed], default: :new
     field :html, :string
+    field :ad_top_count, :integer
+    field :ad_total, :integer
+    field :urls_ad_top, {:array, :string}
+    field :non_ad_count, :integer
+    field :urls_non_ad, {:array, :string}
+    field :total, :integer
 
     belongs_to :user, User
 

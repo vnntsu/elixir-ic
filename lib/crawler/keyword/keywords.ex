@@ -10,9 +10,22 @@ defmodule Crawler.Keyword.Keywords do
   alias Crawler.Repo
   alias CrawlerWorker.Keyword.CrawlerWorker
 
-  def list_keywords(user_id), do: Repo.all(KeywordQuery.user_keywords_query(user_id))
+  def list_user_keywords_by_filter_params(user_id, filter_params \\ %{}) do
+    compacted_params = compact_params(filter_params)
+
+    user_id
+    |> KeywordQuery.user_keywords_query()
+    |> filter_by_name(compacted_params)
+    |> Repo.all()
+  end
 
   def get_keyword_by_id(id), do: Repo.get(Keyword, id)
+
+  def get_keyword_by_user_id_and_id!(user_id, id),
+    do: Repo.get_by!(Keyword, id: id, user_id: user_id)
+
+  def get_keyword_by_user_id_and_id(user_id, id),
+    do: Repo.get_by(Keyword, id: id, user_id: user_id)
 
   def create_keyword(attrs \\ %{}) do
     %Keyword{}
@@ -63,6 +76,17 @@ defmodule Crawler.Keyword.Keywords do
     |> Keyword.failed_changeset()
     |> Repo.update()
   end
+
+  defp compact_params(params) do
+    params
+    |> Enum.filter(fn {_key, value} -> value !== "" and not is_nil(value) end)
+    |> Enum.into(%{})
+  end
+
+  defp filter_by_name(query, %{"keyword" => name}),
+    do: where(query, [k], fragment("? LIKE ?", k.name, ^"%#{name}%"))
+
+  defp filter_by_name(query, _), do: query
 
   defp build_keyword_params_list(keyword_list, user_id) do
     Enum.map(keyword_list, fn keyword ->

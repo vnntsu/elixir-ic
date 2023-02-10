@@ -16,7 +16,7 @@ defmodule CrawlerWeb.KeywordControllerTest do
       assert get_flash(conn, :info) ==
                gettext("%{num_keyword} keywords were uploaded!", num_keyword: 3)
 
-      keywords = Keywords.list_keywords(user.id)
+      keywords = Keywords.list_user_keywords_by_filter_params(user.id)
 
       assert length(keywords) == 3
 
@@ -82,5 +82,67 @@ defmodule CrawlerWeb.KeywordControllerTest do
       assert get_flash(conn, :error) ==
                gettext("One or more keywords are invalid! Allowed keyword length is 1-100")
     end
+  end
+
+  describe "GET show/2" do
+    test "given a keyword belongs to a valid user, renders details page", %{conn: conn} do
+      user = insert(:user)
+
+      keyword =
+        insert(:keyword,
+          user_id: user.id,
+          status: :completed,
+          html: "html",
+          ad_total: 5,
+          urls_ad_top: [],
+          non_ad_count: 10,
+          urls_non_ad: [],
+          ad_top_count: 10,
+          total: 50
+        )
+
+      conn =
+        conn
+        |> log_in_user(user)
+        |> get(Routes.keyword_path(conn, :show, keyword))
+
+      response = html_response(conn, 200)
+
+      assert response =~ keyword.name
+      assert response =~ "#{gettext("Top Ad Count:")} #{keyword.ad_top_count}"
+      assert response =~ "#{gettext("Total Ad Count:")} #{keyword.ad_total}"
+      assert response =~ "#{gettext("Non-Ad Count:")} #{keyword.non_ad_count}"
+      assert response =~ "#{gettext("Total:")} #{keyword.total}"
+    end
+
+    test "given keyword with new status, renders details page with searching status", %{conn: conn} do
+      user = insert(:user)
+
+      keyword =
+        insert(:keyword,
+          user_id: user.id,
+          status: :new
+        )
+
+      conn =
+        conn
+        |> log_in_user(user)
+        |> get(Routes.keyword_path(conn, :show, keyword))
+
+      response = html_response(conn, 200)
+
+      assert response =~ keyword.name
+      assert response =~ gettext("Searching")
+    end
+  end
+
+  test "given another user keyword, raises Ecto.NoResultsError exception", %{conn: conn} do
+    another_user = insert(:user)
+    keyword = insert(:keyword, user_id: another_user.id)
+    expected_user = insert(:user)
+
+    assert_raise(Ecto.NoResultsError, fn ->
+      conn |> log_in_user(expected_user) |> get(Routes.keyword_path(conn, :show, keyword))
+    end)
   end
 end

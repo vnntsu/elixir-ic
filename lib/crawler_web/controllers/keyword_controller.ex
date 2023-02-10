@@ -23,6 +23,11 @@ defmodule CrawlerWeb.KeywordController do
     end
   end
 
+  def show(conn, %{"id" => keyword_id}) do
+    keyword = Keywords.get_keyword_by_user_id_and_id!(conn.assigns.current_user.id, keyword_id)
+    render(conn, "show.html", keyword: keyword)
+  end
+
   defp process_uploaded_file(conn, changes) do
     with {:ok, keyword_list} <- CSVParser.parse(changes.file.path),
          {:ok, keyword_ids} <-
