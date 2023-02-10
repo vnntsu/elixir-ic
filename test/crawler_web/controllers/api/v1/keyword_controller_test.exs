@@ -114,6 +114,74 @@ defmodule CrawlerWeb.Api.V1.KeywordControllerTest do
     end
   end
 
+  describe "GET show/2" do
+    test "given a valid keyword id, returns 200 and keyword detail", %{conn: conn} do
+      user = insert(:user)
+
+      keyword =
+        insert(:keyword,
+          name: "phone",
+          user_id: user.id,
+          status: :completed,
+          html: "html",
+          ad_total: 5,
+          urls_ad_top: [],
+          non_ad_count: 10,
+          urls_non_ad: [],
+          ad_top_count: 10,
+          total: 50
+        )
+
+      conn =
+        conn
+        |> auth_with_user(user)
+        |> get(Routes.api_v1_keyword_path(conn, :show, keyword.id))
+
+      assert %{
+               "data" => %{
+                 "attributes" => %{
+                   "ad_top_count" => 10,
+                   "ad_total" => 5,
+                   "name" => "phone",
+                   "non_ad_count" => 10,
+                   "status" => "completed",
+                   "total" => 50,
+                   "urls_ad_top" => [],
+                   "urls_non_ad" => []
+                 },
+                 "id" => _,
+                 "relationships" => %{},
+                 "type" => "keyword"
+               },
+               "included" => []
+             } = json_response(conn, 200)
+    end
+
+    test "given an invalid keyword id, returns error not found", %{conn: conn} do
+      user = insert(:user)
+      %{id: keyword_id} = insert(:keyword, name: "watch", user_id: user.id)
+
+      expected_user = insert(:user)
+      insert(:keyword, name: "phone", user_id: expected_user.id)
+
+      detail = gettext("Keyword was not found")
+
+      conn =
+        conn
+        |> auth_with_user(expected_user)
+        |> get(Routes.api_v1_keyword_path(conn, :show, keyword_id))
+
+      assert %{
+               "errors" => [
+                 %{
+                   "code" => "not_found",
+                   "detail" => ^detail
+                 }
+               ]
+             } = json_response(conn, 404)
+    end
+  end
+
   describe "POST create/2" do
     test "given valid keyword csv file, creates keywords and returns 200", %{conn: conn} do
       user = insert(:user)

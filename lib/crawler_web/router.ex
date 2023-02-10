@@ -65,7 +65,7 @@ defmodule CrawlerWeb.Router do
     pipe_through [:api, :api_auth]
 
     scope "/v1", Api.V1, as: :v1 do
-      resources("/keyword", KeywordController, only: [:index, :create])
+      resources("/keyword", KeywordController, only: [:index, :create, :show])
     end
   end
 end
