@@ -5,7 +5,7 @@ defmodule Crawler.Keyword.KeywordsTest do
   alias Crawler.Keyword.Schemas.Keyword
   alias CrawlerWorker.Keyword.CrawlerWorker
 
-  describe "list_keywords/1" do
+  describe "list_user_keywords_by_filter_params/1" do
     test "given a valid user id, returns user's keyword list" do
       %{id: user_id} = insert(:user)
       insert(:keyword, user_id: user_id)
@@ -13,7 +13,101 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: expected_user_id} = insert(:user)
       expected_keyword = insert(:keyword, user_id: expected_user_id)
 
-      assert Keywords.list_keywords(expected_user_id) == [expected_keyword]
+      assert Keywords.list_user_keywords_by_filter_params(expected_user_id) == [expected_keyword]
+    end
+  end
+
+  describe "list_user_keywords_by_filter_params/2" do
+    test "given a valid user id and valid keyword name, returns user's keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+      expected_keyword = insert(:keyword, user_id: expected_user_id, name: "phone")
+      insert(:keyword, user_id: expected_user_id, name: "tv")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => expected_keyword.name
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given a part of valid keyword, returns user's keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "phone")
+      insert(:keyword, user_id: user_id, name: "tv")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+      insert(:keyword, user_id: expected_user_id, name: "tv")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => "hon"
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given an invalid keyword, returns empty keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "something")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+      insert(:keyword, user_id: expected_user_id, name: "tv")
+
+      assert Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+               "keyword" => "something"
+             }) == []
+    end
+
+    test "given a nil keyword, returns keyword list" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "keyword")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => nil
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given another filter that is not `keyword`, returns keyword list without filter" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "phone")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "another_filter" => "filter_value"
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given 2 filter params that contains keyword, returns keyword list without filter" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "phone")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => "phone",
+                 "another_filter" => "filter_value"
+               })
+
+      assert stored_keyword_name == "phone"
     end
   end
 
@@ -79,7 +173,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: user_id} = insert(:user)
 
       assert {:error, _reason} = Keywords.create_keyword_list(["one", ""], user_id)
-      assert Keywords.list_keywords(user_id) == []
+      assert Keywords.list_user_keywords_by_filter_params(user_id) == []
     end
   end
 
@@ -88,7 +182,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: user_id} = insert(:user)
 
       assert {:ok, keyword_ids} = Keywords.create_keyword_list(["first", "second"], user_id)
-      assert length(Keywords.list_keywords(user_id)) == 2
+      assert length(Keywords.list_user_keywords_by_filter_params(user_id)) == 2
 
       assert [first_keyword_id, second_keyword_id] = keyword_ids
       assert_enqueued(worker: CrawlerWorker, args: %{keyword_id: first_keyword_id})
@@ -100,7 +194,7 @@ defmodule Crawler.Keyword.KeywordsTest do
       %{id: expected_user_id} = insert(:user)
       Keywords.create_keyword_list(["first", "second"], user_id)
 
-      assert Keywords.list_keywords(expected_user_id) == []
+      assert Keywords.list_user_keywords_by_filter_params(expected_user_id) == []
     end
   end
 

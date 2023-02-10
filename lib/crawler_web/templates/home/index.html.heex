@@ -13,15 +13,25 @@
       <div class="col-3">
         <%= file_input(f, :file, class: "form-control", required: true, accept: 'text/csv') %>
       </div>
-      <div class="col-3">
+      <div class="col">
         <%= submit(gettext("Upload"), class: "btn btn-primary mb-3") %>
       </div>
     <% end %>
 
+    <div class="col-12">
+      <%= render("_keyword_filter.html", conn: @conn) %>
+    </div>
+
     <%= if Enum.empty?(@keywords) do %>
-      <p>
-        <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
-      </p>
+      <%= if is_nil(@params["keyword"]) or @params["keyword"] == "" do %>
+        <p>
+          <%= gettext("You don't have keywords yet, please upload a CSV file.") %>
+        </p>
+      <% else %>
+        <p>
+          <%= gettext("No keywords found, try with another keyword") %>
+        </p>
+      <% end %>
     <% else %>
       <%= render("_keyword_list.html", conn: @conn, keywords: @keywords) %>
     <% end %>
