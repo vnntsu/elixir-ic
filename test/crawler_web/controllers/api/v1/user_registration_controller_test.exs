@@ -127,5 +127,55 @@ defmodule CrawlerWeb.Api.V1.UserRegistrationControllerTest do
                ]
              }
     end
+
+    test "given a valid user credentials with an authenticated user, returns access token",
+         %{
+           conn: conn
+         } do
+      user = insert(:user)
+      email = "new_email@gmail.com"
+
+      conn =
+        conn
+        |> auth_with_user(user)
+        |> post(Routes.api_v1_user_registration_path(conn, :create), %{
+          email: email,
+          password: "12345678"
+        })
+
+      assert %{
+               "data" => %{
+                 "attributes" => %{
+                   "email" => ^email,
+                   "token" => _
+                 },
+                 "id" => _,
+                 "relationships" => %{},
+                 "type" => "user_registration"
+               },
+               "included" => []
+             } = json_response(conn, 200)
+    end
+
+    test "given an invalid user credentials with an authenticated user, returns error response",
+         %{
+           conn: conn
+         } do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> auth_with_user(user)
+        |> post(Routes.api_v1_user_registration_path(conn, :create), %{})
+
+      assert json_response(conn, 422) == %{
+               "errors" => [
+                 %{
+                   "code" => "unprocessable_entity",
+                   "detail" => gettext("Email or password is missing")
+                 }
+               ]
+             }
+    end
   end
 end
