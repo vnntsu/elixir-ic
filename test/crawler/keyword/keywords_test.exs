@@ -53,7 +53,7 @@ defmodule Crawler.Keyword.KeywordsTest do
 
     test "given an invalid keyword, returns empty keyword list" do
       %{id: user_id} = insert(:user)
-      insert(:keyword, user_id: user_id, name: "keyword")
+      insert(:keyword, user_id: user_id, name: "something")
 
       %{id: expected_user_id} = insert(:user)
       insert(:keyword, user_id: expected_user_id, name: "phone")
@@ -88,7 +88,23 @@ defmodule Crawler.Keyword.KeywordsTest do
 
       assert [%{name: stored_keyword_name}] =
                Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
-                 "another_filter" => nil
+                 "another_filter" => "filter_value"
+               })
+
+      assert stored_keyword_name == "phone"
+    end
+
+    test "given 2 filter params that contains keyword, returns keyword list without filter" do
+      %{id: user_id} = insert(:user)
+      insert(:keyword, user_id: user_id, name: "phone")
+
+      %{id: expected_user_id} = insert(:user)
+      insert(:keyword, user_id: expected_user_id, name: "phone")
+
+      assert [%{name: stored_keyword_name}] =
+               Keywords.list_user_keywords_by_filter_params(expected_user_id, %{
+                 "keyword" => "phone",
+                 "another_filter" => "filter_value"
                })
 
       assert stored_keyword_name == "phone"
