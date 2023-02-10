@@ -5,6 +5,15 @@ defmodule CrawlerWeb.Api.V1.KeywordController do
   alias Crawler.Keyword.Keywords
   alias Crawler.Keyword.Schemas.{Keyword, KeywordCSVFile}
   alias CrawlerWeb.Api.ErrorView
+  alias CrawlerWeb.Api.V1.KeywordListView
+
+  def index(conn, params) do
+    keywords = Keywords.list_user_keywords_by_filter_params(conn.assigns.current_user.id, params)
+
+    conn
+    |> put_view(KeywordListView)
+    |> render("show.json", %{data: keywords})
+  end
 
   def create(conn, %{"keyword_csv_file" => params}) do
     changeset = %{
