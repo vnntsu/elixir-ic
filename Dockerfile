@@ -31,6 +31,8 @@ RUN cd assets && \
 
 ENV NODE_ENV=production
 
+RUN chmod +x /app/*
+
 RUN mix assets.deploy
 
 RUN mix release
