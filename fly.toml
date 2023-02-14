@@ -1,6 +1,6 @@
-# fly.toml file generated for crawler-production on 2023-02-13T11:15:06+07:00
+# fly.toml file generated for gcrawler on 2023-02-14T15:18:01+07:00
 
-app = "crawler-production"
+app = "gcrawler"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
@@ -9,7 +9,7 @@ processes = []
   release_command = "/app/bin/migrate"
 
 [env]
-  PHX_HOST = "crawler-production.fly.dev"
+  PHX_HOST = "gcrawler.fly.dev"
   PORT = "8080"
 
 [experimental]

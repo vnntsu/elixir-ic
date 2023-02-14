@@ -1,67 +1,95 @@
-ARG ELIXIR_IMAGE_VERSION=1.14.0
-ARG ERLANG_IMAGE_VERSION=25.0.4
-ARG RELEASE_IMAGE_VERSION=3.14.6
+# Find eligible builder and runner images on Docker Hub. We use Ubuntu/Debian instead of
+# Alpine to avoid DNS resolution issues in production.
+#
+# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
+# https://hub.docker.com/_/ubuntu?tab=tags
+#
+#
+# This file is based on these images:
+#
+#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
+#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20221004-slim - for the release image
+#   - https://pkgs.org/ - resource for finding needed packages
+#   - Ex: hexpm/elixir:1.14.2-erlang-25.1.2-debian-bullseye-20221004-slim
+#
+ARG ELIXIR_VERSION=1.14.2
+ARG OTP_VERSION=25.1.2
+ARG DEBIAN_VERSION=bullseye-20221004-slim
 
-FROM hexpm/elixir:${ELIXIR_IMAGE_VERSION}-erlang-${ERLANG_IMAGE_VERSION}-alpine-${RELEASE_IMAGE_VERSION} AS build
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
-RUN apk update && \
-  apk upgrade --no-cache && \
-  apk add --no-cache \
-  nodejs \
-  npm \
-  git \
-  build-base && \
-  mix local.rebar --force && \
-  mix local.hex --force
+FROM ${BUILDER_IMAGE} as builder
 
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
-RUN apk add glibc-2.34-r0.apk
+# install build dependencies
+RUN apt-get update -y && apt-get install -y build-essential git \
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
+# prepare build dir
 WORKDIR /app
 
-COPY . .
+# install hex + rebar
+RUN mix local.hex --force && \
+  mix local.rebar --force
 
-ENV MIX_ENV=prod
+# set build ENV
+ENV MIX_ENV="prod"
 
-RUN mix do deps.get, deps.compile, compile
+# install mix dependencies
+COPY mix.exs mix.lock ./
+RUN mix deps.get --only $MIX_ENV
+RUN mkdir config
 
-RUN cd assets && \
-  npm ci --progress=false --no-audit --loglevel=error
+# copy compile-time config files before we compile dependencies
+# to ensure any relevant config change will trigger the dependencies
+# to be re-compiled.
+COPY config/config.exs config/${MIX_ENV}.exs config/
+RUN mix deps.compile
 
-ENV NODE_ENV=production
+COPY priv priv
 
-RUN chmod +x /app/*
+COPY lib lib
 
+COPY assets assets
+
+# compile assets
 RUN mix assets.deploy
 
+# Compile the release
+RUN mix compile
+
+# Changes to config/runtime.exs don't require recompiling the code
+COPY config/runtime.exs config/
+
+COPY rel rel
 RUN mix release
 
-#
-# Release
-#
-FROM alpine:${RELEASE_IMAGE_VERSION} AS app
+# start a new build stage so that the final image will only contain
+# the compiled release and other runtime necessities
+FROM ${RUNNER_IMAGE}
 
-RUN apk update && \
-  apk add --no-cache \
-  libstdc++ \
-  libgcc \
-  bash \
-  openssl-dev
+RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
-WORKDIR /opt/app
-EXPOSE 4000
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
-RUN addgroup -g 1000 appuser && \
-  adduser -u 1000 -G appuser -g appuser -s /bin/sh -D appuser && \
-  chown 1000:1000 /opt/app
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
-COPY --from=build --chown=1000:1000 /app/_build/prod/rel/crawler ./
-COPY bin/start.sh ./bin/start.sh
+WORKDIR "/app"
+RUN chown nobody /app
 
-USER appuser
+# set runner ENV
+ENV MIX_ENV="prod"
 
-CMD bin/start.sh
+# Only copy the final release from the build stage
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/demo_elixir ./
+
+USER nobody
+
+CMD ["/app/bin/server"]
 
 # Appended by flyctl
 ENV ECTO_IPV6 true
